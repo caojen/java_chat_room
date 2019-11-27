@@ -1,29 +1,87 @@
 package Frontend.Console;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+import Frontend.Helper.Helper;
+
 public class SenderConsole implements Consoler {
+  // sender showText will not be presented in console, just store it.
+  public static Map<String, String> showText = new LinkedHashMap<String, String>();
 
   @Override
-  public void append(String data, String key) throws Exception {
-    // TODO Auto-generated method stub
-
+  public void append(String key, String data) throws Exception {
+    if(showText.containsKey(key) == true) {
+      throw new Exception("Console_Key_Duplicated");
+    }
+    showText.put(key, data);
   }
 
   @Override
   public void delete(String key) throws Exception {
-    // TODO Auto-generated method stub
-
+    if(showText.containsKey(key) == false) {
+      throw new Exception("Console_Key_Not_Exist");
+    }
+    showText.remove(key);
   }
 
   @Override
   public void run() {
-    // TODO Auto-generated method stub
-
+    senderRunningClass.start();
   }
 
   @Override
-  public void fresh() {
-    // TODO Auto-generated method stub
-
+  public String get() {
+    StringBuffer result = new StringBuffer();
+    for(String key: showText.keySet()) {
+      result.append(key + ":\n\t" + showText.get(key) + "\n");
+    }
+    return result.toString();
   }
-  
+}
+
+class senderRunningClass implements Runnable {
+  LoopForInputAndSendMessage timer = new LoopForInputAndSendMessage();
+  public static void start() {
+    senderRunningClass senderRunning = new senderRunningClass();
+    Thread t = new Thread(senderRunning);
+    t.start();
+  }
+
+  @Override
+  public void run() {
+    timer.start();
+  }
+}
+
+class LoopForInputAndSendMessage {
+  public void start() {
+    while(true) {
+      // loop:
+      //   get input(one line) and sent to backend
+      try {
+        System.out.print("New Message:>>>");
+        
+        Scanner input = new Scanner(System.in);
+        String message = input.nextLine();
+        // send it...
+        Map<String, String> m = new HashMap<String, String>();
+        m.put("message", message);
+
+        Map<String, String> result = Helper.sendMessage(m);
+
+        if(result.get("status") != "200") {
+          input.close();
+          throw new Exception("Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
+        }
+        input.close();
+
+        Thread.sleep(200);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }

@@ -2,6 +2,7 @@
   + 前端处理:
     + Main - 程序入口
     + Http - 发送和接受Http请求
+    + Helper - 从Configuation获取信息,并且提供http接口给console,并发送http请求
     + Console - 处理控制台\[多线程\]
     + Configuration - 加载常量并读取本地用户配置? \[文件读写\]
     + UI - 图形界面?
@@ -25,4 +26,4 @@
     + 普通用户: Participant, 数据库保存信息: 姓名/年龄/邮箱/号码/最大创建房间数
       + 权限管理: 创建房间/加入或退出某房间(如果作为房主,则需要先转让房主权限再退出,或解散)/获取进入的房间的所有成员名
     + 身份冲突: 不允许.即不允许一个User同时充当Admin和Participant
-  + 类: Room, 数据库保存信息: roomId(作为唯一标识)/创建时间/人数/房主username/参与者participants' usernames[]
+  + 类: Room, 数据库保存信息: roomId(作为唯一标识)/创建时间/人数/房主username/参与者participants' usernames[]/房间聊天记录

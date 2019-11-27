@@ -12,7 +12,7 @@ public interface Consoler  {
    * The message should be ordered, use LinkHashMap
    * Messages will present in key-value map
    */
-  public Map<String, String> showText = new LinkedHashMap<String, String>();
+  // public Map<String, String> showText = new LinkedHashMap<String, String>();
 
   /**
    * append a String to this console showing text
@@ -20,7 +20,7 @@ public interface Consoler  {
    * @param key The key of the data
    * @throws Excepotion if key already exists.
    */
-  public void append(String data, String key) throws Exception;
+  public void append(String key, String data) throws Exception;
 
   /**
    * To delete a key-value in showText
@@ -31,11 +31,12 @@ public interface Consoler  {
 
   /**
    * The main function
+   * This will call a new Thread
    */
   public void run();
 
   /**
-   * Fresh the console
+   * get the console text' with String
    */
-  public void fresh();
+  public String get();
 }

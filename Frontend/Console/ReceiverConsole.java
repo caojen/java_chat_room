@@ -21,9 +21,9 @@ public class ReceiverConsole implements Consoler {
   }
 
   @Override
-  public void fresh() {
+  public String get() {
     // TODO Auto-generated method stub
-
+    return null;
   }
   
 }
