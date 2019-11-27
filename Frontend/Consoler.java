@@ -34,5 +34,8 @@ public interface Consoler  {
    */
   public void run();
 
-  
+  /**
+   * Fresh the console
+   */
+  public void fresh();
 }
