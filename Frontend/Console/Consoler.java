@@ -1,4 +1,4 @@
-package Frontend;
+package Frontend.Console;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

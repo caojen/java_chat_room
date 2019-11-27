@@ -1,4 +1,4 @@
-package Frontend;
+package Frontend.Http;
 
 import java.util.Map;
 
