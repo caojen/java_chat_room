@@ -27,6 +27,9 @@ public class SenderConsole implements Consoler {
     showText.remove(key);
   }
 
+  /**
+   * call this function will create a Thread.
+   */
   @Override
   public void run() {
     senderRunningClass.start();
