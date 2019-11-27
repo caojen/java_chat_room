@@ -63,13 +63,15 @@ class LoopForInputAndSendMessage {
       //   get input(one line) and sent to backend
       try {
         System.out.print("New Message:>>>");
-        
+
         Scanner input = new Scanner(System.in);
         String message = input.nextLine();
-        // send it...
+
+        // format message:
         Map<String, String> m = new HashMap<String, String>();
         m.put("message", message);
 
+        // send it:
         Map<String, String> result = Helper.sendMessage(m);
 
         if(result.get("status") != "200") {
@@ -78,6 +80,7 @@ class LoopForInputAndSendMessage {
         }
         input.close();
 
+        // wait for 200ms to avoid memory overflow
         Thread.sleep(200);
       } catch (Exception e) {
         e.printStackTrace();
