@@ -5,8 +5,18 @@ import Frontend.Configuation.UserType.UserTypeEnum;
 public class Configuation {
   // test, just use static valuable.
   public static String ApiPrifix = "http://localhost:8080/";
+  // for console:
   public static String sendMessage = "send/";
   public static String getMessage = "get/";
+  // login:
+  public static String login = "login/";
+  // register:
+  public static String register = "register/";
+  // all room:
+  public static String allRoom = "room/all/";
+  // enter room:
+  public static String enterRoom = "room/enter/";
+
   // ... more configuations...
 
   // user's information:

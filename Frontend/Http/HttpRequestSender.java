@@ -18,6 +18,9 @@ import javax.sound.midi.Receiver;
 public class HttpRequestSender implements HttpRequest {
   @Override
   public Map<String, String> get(String url, Map<String, String> map) throws Exception {
+    if(map == null) {
+      map = new HashMap<String, String>();
+    }
     String param = "";
     String value = "";
     try {
@@ -53,6 +56,9 @@ public class HttpRequestSender implements HttpRequest {
 
   @Override
   public Map<String, String> post(String url, Map<String, String> map) throws Exception {
+    if(map == null) {
+      map = new HashMap<String, String>();
+    }
     URL _url = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) _url.openConnection();
     

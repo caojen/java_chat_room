@@ -1,6 +1,7 @@
 + Frontend:
   + 前端处理:
     + Main - 程序入口
+    + Frontend - 处理用户界面以及业务逻辑
     + Http - 发送和接受Http请求
     + Helper - 从Configuation获取信息,并且提供http接口给console,并发送http请求
     + Console - 处理控制台\[多线程\]
@@ -13,11 +14,12 @@
     + Urls - 监听get/post/put/delete请求
     + Views - (被Urls调用,)处理监听事项
     + Models - 用户身份模块\[继承\]
-    + DataBase - 提供读/写数据库接口
+    + Control - 提供读/写数据库接口
 
 + 前后端通信规则:
   + 后端只需要处理get/post请求
   + 后端必须相应键值status
+  + 前后端通信时所有value都使用URLEncoder.encode, URLDecoder.decode进行转换.
 
 + 模型(与数据库交接):
   + 超类: User, 数据库保存信息: username(作为唯一标识)/密码

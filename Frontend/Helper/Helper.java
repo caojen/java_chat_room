@@ -1,10 +1,13 @@
 package Frontend.Helper;
 
 import java.util.Map;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import Frontend.Configuation.Configuation;
+import Frontend.Configuation.UserType;
 import Frontend.Http.HttpRequestSender;
 import Frontend.Http.HttpRequest;
 
@@ -53,6 +56,82 @@ public class Helper {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public static Map<String, String> login(String username, String password) {
+    Map<String, String> body = new HashMap<String, String>();
+    try {
+      body.put("username", URLEncoder.encode(username, "utf-8"));
+      body.put("password", URLEncoder.encode(password, "utf-8"));
+      Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.login, body);
+      
+      Configuation.set_token(URLDecoder.decode(result.get("token"), "utf-8"));
+      Configuation.set_username(URLDecoder.decode(result.get("username"), "utf-8"));
+      Configuation.set_usertype(UserType.toEnum(URLDecoder.decode(result.get("usertype"), "utf-8")));
+
+      return result;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * Register a new user.
+   * @param username
+   * @param password
+   * @param email
+   * @param phone
+   * @return http-response-map(status == 200 if success)
+   */
+  public static Map<String, String> register(String username, String password, String email, String phone) {
+    Map<String, String> body = new HashMap<String, String>();
+    try {
+      body.put("username", URLEncoder.encode(username, "utf-8"));
+      body.put("password", URLEncoder.encode(password, "utf-8"));
+      body.put("email", URLEncoder.encode(email, "utf-8"));
+      body.put("phone", URLEncoder.encode(phone, "utf-8"));
+    
+      return http.post(Configuation.ApiPrifix + Configuation.register, body);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * get all the room_id
+   * @return a map contain all room(roomid - owner)
+   */
+  public static Map<String, String> getRoomList() {
+    try {
+      Map<String, String> roomList = http.get(Configuation.ApiPrifix + Configuation.allRoom, null);
+      if(roomList.get("status") != "200") {
+        throw new Exception("ACCESS_ROOM_LIST_ERROR");
+      }
+      return toMap(roomList.get("data"));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * Try to enter the room
+   * @param roomid a string stand for the room id
+   * @return http-response-map
+   */
+  public static Map<String, String> enterRoom(String roomid) {
+    Map<String, String> body = new HashMap<String, String>();
+    try {
+      body.put("roomid", URLEncoder.encode(roomid, "utf-8"));
+      body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+      body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+      return http.post(Configuation.ApiPrifix + Configuation.enterRoom, body);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   /**
