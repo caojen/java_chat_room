@@ -1,6 +1,7 @@
 package Frontend.Helper;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import Frontend.Configuation.Configuation;
@@ -34,6 +35,7 @@ public class Helper {
    */
   public static Map<String, String> getMessage(String last_key) {
     try {
+      Map<String, String> message = new HashMap<String, String>();
       message.put("username", Configuation.get_username());
       message.put("token", Configuation.get_token());
       message.put("room", Configuation.get_room_id());
@@ -45,17 +47,31 @@ public class Helper {
       }
 
       Map<String, String> result = Helper.http.post(Configuation.ApiPrifix + Configuation.getMessage, message);
-
-      Map<String, String> ret = 
-
       
+      return toMap(result.get("data"));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return null;
   }
 
   /**
+   * format a key-value-string to a map
    * @param array a String with messages, e.g. key1=en(opopojo)&key2="asdf". the value should be encoded.
+   * @return return a order map
    */
-  private static Map<String, String> toMap(String array) {
-    
+  private static Map<String, String> toMap(String array_str) throws Exception {
+    String[] key_value = array_str.split("&");
+    Map<String, String> ret = new LinkedHashMap<String, String>();
+
+    for(String ele : key_value) {
+      if(ele.split("=").length != 2) {
+        throw new Exception("Return_Value_Length_Exception");
+      }
+      String key = ele.split("=")[0];
+      String value = ele.split("=")[1];
+      ret.put(key, value);
+    }
+    return ret;
   }
 }

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Frontend.Http.*;
-import Frontend.Console.*;
 
 /**
  * Do nothing, just for testing.

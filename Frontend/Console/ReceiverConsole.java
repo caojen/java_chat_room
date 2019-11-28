@@ -1,6 +1,9 @@
 package Frontend.Console;
 
 import java.util.Map;
+
+import Frontend.Helper.Helper;
+
 import java.util.LinkedHashMap;
 
 public class ReceiverConsole implements Consoler {
@@ -25,7 +28,6 @@ public class ReceiverConsole implements Consoler {
 
   @Override
   public void run() {
-    // TODO Auto-generated method stub
     ReceiverRunningClass.start();
   }
 
@@ -59,13 +61,27 @@ class LoopForReceive {
   public void start() {
     while(true) {
       // loop:
-      //    ask for new contain,
-      //    get the last key of this 'showText'
+      //    ask for new message from server
+      //    get the last key of this 'showText', if showText is null, last_key wiil be null.
       try {
+        String last_key = "";
+        if(ReceiverConsole.showText.isEmpty() == true) {
+          last_key = null;
+        } else {
+          for(String key: ReceiverConsole.showText.keySet()) {
+            last_key = key;
+          }
+        }
+        Map<String, String> result = Helper.getMessage(last_key);
+        for(String key: result.keySet()) {
+          ReceiverConsole.showText.put(key, result.get(key));
+        }
         
+        Thread.sleep(500);
       } catch (Exception e) {
         e.printStackTrace();
       }
+      
     }
   }
 }
