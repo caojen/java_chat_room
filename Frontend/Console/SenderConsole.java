@@ -65,7 +65,7 @@ class LoopForInputAndSendMessage {
       // loop:
       //   get input(one line) and sent to backend
       try {
-        System.out.print("New Message:>>>");
+        System.out.print("[input] New Message:>>>");
 
         Scanner input = new Scanner(System.in);
         String message = input.nextLine();
