@@ -30,3 +30,10 @@
       + 权限管理: 创建房间/加入或退出某房间(如果作为房主,则需要先转让房主权限再退出,或解散)/获取进入的房间的所有成员名
     + 身份冲突: 不允许.即不允许一个User同时充当Admin和Participant
   + 类: Room, 数据库保存信息: roomId(作为唯一标识)/创建时间/人数/房主username/参与者participants' usernames[]/房间聊天记录
+
+
+
+运行前端:
+```
+javac Frontend/Main.java && java Frontend.Main
+```
