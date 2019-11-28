@@ -40,7 +40,7 @@ public class ReceiverConsole implements Consoler {
   
 }
 
-public class ReceiverRunningClass implements Runnable {
+ class ReceiverRunningClass implements Runnable {
   LoopForReceive timer = new LoopForReceive();
   
   public static void start() {
@@ -50,7 +50,7 @@ public class ReceiverRunningClass implements Runnable {
   }
 
   @Override
-  public class run() {
+  public void run() {
     timer.start();
   }
 }
@@ -63,6 +63,8 @@ class LoopForReceive {
       //    get the last key of this 'showText'
       try {
         
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
   }
