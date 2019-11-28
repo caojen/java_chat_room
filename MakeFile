@@ -1,0 +1,19 @@
+all: frontend backend
+
+frontend:
+	java Frontend/Main.java
+
+backend:
+	java Backend/Main.java
+
+runfrontend:
+	javac Frontend.Main
+
+runbackend:
+	javac Backend.Main
+
+clean:
+	rm -rf *.class
+
+rebuild:
+	rm -rf *.class && java Frontend/Main.java && java Backend/Main.java
