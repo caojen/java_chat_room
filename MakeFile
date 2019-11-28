@@ -1,19 +1,16 @@
-all: frontend backend
+src = $(wildcard *.md)
 
-frontend:
-	java Frontend/Main.java
+all:
+	javac Frontend/Main.java && javac Backend/Main.java
+
+frontend: 
+	javac Frontend/Main.java
 
 backend:
-	java Backend/Main.java
-
-runfrontend:
-	javac Frontend.Main
-
-runbackend:
-	javac Backend.Main
+	javac Backend/Main.java
 
 clean:
-	rm -rf *.class
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \;
 
-rebuild:
-	rm -rf *.class && java Frontend/Main.java && java Backend/Main.java
+build:
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && javac Backend/Main.java 
