@@ -75,13 +75,22 @@ class LoopForReceive {
         Map<String, String> result = Helper.getMessage(last_key);
         for(String key: result.keySet()) {
           ReceiverConsole.showText.put(key, result.get(key));
+          AfterReceive(key, result.get(key));
         }
-        
+
         Thread.sleep(500);
       } catch (Exception e) {
         e.printStackTrace();
       }
-      
     }
+  }
+
+  /**
+   * to deal with the key-value that have received.
+   * @param key
+   * @param value
+   */
+  private void AfterReceive(String key, String value) {
+    System.out.println("[" + key + "] " + value);
   }
 }
