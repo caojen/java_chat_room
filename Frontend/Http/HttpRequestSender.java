@@ -15,12 +15,18 @@ import java.util.Map;
 
 import javax.sound.midi.Receiver;
 
+import Frontend.Log.Log;
+
 public class HttpRequestSender implements HttpRequest {
   @Override
   public Map<String, String> get(String url, Map<String, String> map) throws Exception {
     if(map == null) {
       map = new HashMap<String, String>();
     }
+
+    map.put("method", "GET");
+    Log.writeMap(map);
+
     String param = "";
     String value = "";
     try {
@@ -59,6 +65,10 @@ public class HttpRequestSender implements HttpRequest {
     if(map == null) {
       map = new HashMap<String, String>();
     }
+
+    map.put("method", "POST");
+    Log.writeMap(map);
+
     URL _url = new URL(url);
     HttpURLConnection connection = (HttpURLConnection) _url.openConnection();
     

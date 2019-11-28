@@ -5,6 +5,7 @@
     + Http - 发送和接受Http请求
     + Helper - 从Configuation获取信息,并且提供http接口给console,并发送http请求
     + Console - 处理控制台\[多线程\]
+    + Log - 保存日志,目前只需要当发送http请求时写入日志(由Http调用)
     + Configuration - 加载常量并读取本地用户配置? \[文件读写\]
     + UI - 图形界面?
 

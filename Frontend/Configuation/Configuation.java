@@ -58,4 +58,6 @@ public class Configuation {
   public static String get_room_id() {
     return room_id;
   }
+
+  public static String LogPath = "Log/frontend.log";
 }
