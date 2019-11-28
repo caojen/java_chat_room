@@ -79,9 +79,11 @@ class LoopForInputAndSendMessage {
 
         if(result.get("status") != "200") {
           input.close();
-          throw new Exception("Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
+          throw new Exception("[Failed] Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
         }
         input.close();
+        
+        System.out.println("[Succeed] Message Send Success!");
 
         // wait for 200ms to avoid memory overflow
         Thread.sleep(200);
