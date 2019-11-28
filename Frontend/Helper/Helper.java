@@ -14,7 +14,14 @@ public class Helper {
    * @param message the message
    * @return http-response-map
    */
-  public static Map<String, String> sendMessage(Map<String, String> message) {
-    return null;
+  public static Map<String, String> sendMessage(Map<String, String> message) throws Exception {
+    try {
+      message.put("username", Configuation.get_username());
+      message.put("token", Configuation.get_token());
+      return Helper.http.post(Configuation.ApiPrifix + Configuation.sendMessage, message);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 }

@@ -5,6 +5,7 @@ import Frontend.Configuation.UserType.UserTypeEnum;
 public class Configuation {
   // test, just use static valuable.
   public static String ApiPrifix = "http://localhost:8080/";
+  public static String sendMessage = "send/";
   // ... more configuations...
 
   // user's information:
@@ -36,7 +37,4 @@ public class Configuation {
   public static UserTypeEnum get_usertype() {
     return usertype;
   }
-
-
-
 }
