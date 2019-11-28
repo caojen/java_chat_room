@@ -32,7 +32,7 @@ public class SenderConsole implements Consoler {
    */
   @Override
   public void run() {
-    senderRunningClass.start();
+    SenderRunningClass.start();
   }
 
   @Override
@@ -45,10 +45,10 @@ public class SenderConsole implements Consoler {
   }
 }
 
-class senderRunningClass implements Runnable {
+class SenderRunningClass implements Runnable {
   LoopForInputAndSendMessage timer = new LoopForInputAndSendMessage();
   public static void start() {
-    senderRunningClass senderRunning = new senderRunningClass();
+    SenderRunningClass senderRunning = new SenderRunningClass();
     Thread t = new Thread(senderRunning);
     t.start();
   }
