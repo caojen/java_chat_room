@@ -20,8 +20,7 @@ public class Helper {
       message.put("token", Configuation.get_token());
       return Helper.http.post(Configuation.ApiPrifix + Configuation.sendMessage, message);
     } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+      throw e;
     }
   }
 }
