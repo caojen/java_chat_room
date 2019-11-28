@@ -3,14 +3,20 @@ src = $(wildcard *.md)
 all:
 	javac Frontend/Main.java && javac Backend/Main.java
 
-frontend: 
+initfrontend: 
 	javac Frontend/Main.java
 
-backend:
+initbackend:
 	javac Backend/Main.java
 
 clean:
 	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \;
 
 build:
-	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && javac Backend/Main.java 
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && javac Backend/Main.java
+
+runfrontend:
+	java Frontend.Main
+
+runbackend:
+	java Backend.Main
