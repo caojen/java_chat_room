@@ -101,7 +101,7 @@ public class Helper {
   public static Map<String, String> getRoomList() {
     try {
       Map<String, String> roomList = http.get(Configuation.ApiPrifix + Configuation.allRoom, null);
-      if(roomList.get("status") != "200") {
+      if(!roomList.get("status").equals("200")) {
         throw new Exception("ACCESS_ROOM_LIST_ERROR");
       }
       return toMap(roomList.get("data"));
@@ -162,7 +162,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.quitRoom, body);
 
-    if(result.get("status") != "200") {
+    if(!result.get("status").equals("200")) {
       throw new Exception("Cannot quit because of " + result.get("message"));
     }
   }
@@ -182,7 +182,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.removeParticipant, body);
 
-    if(result.get("status") != "200") {
+    if(!result.get("status").equals("200")) {
       throw new Exception("Cannot remove because of " + result.get("message"));
     }
   }
@@ -199,7 +199,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
-    if(result.get("status") != "200") {
+    if(!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));
     }
   }
@@ -219,7 +219,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.changeOwner, body);
 
-    if(result.get("status") != "200") {
+    if(!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));
     }
   }
@@ -231,7 +231,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.getMembers, body);
 
-    if(result.get("status") != "200") {
+    if(!result.get("status").equals("200")) {
       throw new Exception(result.get("message"));
     }
 

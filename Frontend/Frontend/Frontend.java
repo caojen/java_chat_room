@@ -68,7 +68,7 @@ public class Frontend {
     System.out.print("[login required] Please type your username(q to back): ");
 
     String username = Main.scan.nextLine();
-    if(username.equals("q") {
+    if(username.equals("q")) {
       return false;
     }
 

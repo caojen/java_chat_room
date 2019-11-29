@@ -29,42 +29,41 @@ public class CMD {
       throw new Exception("Not a command");
     }
     try {
-      switch (args[0]) {
-        case "#quit": {
-          // quit this room
-          Helper.quitRoom();
-          return false;
-        }
-        case "#remove": {
-          // To delete a user in the room(should be admin or owner)
-          String username = args[1];
-          Helper.removeParticipant(username);
-          break;
-        }
-        case "#deleteroom": {
-          // To delete this room(should be admin or owner)
-          Helper.deleteRoom();
-          break;
-        }
-        case "#ownerchange": {
-          // To change owner(should be admin or owner)
-          String target = args[1];
-          Helper.changeOwner(target);
-          break;
-        }
-        case "#showmember": {
-          // show all the participant
-          Map<String, String> result = Helper.getMembers();
+      if(args[0].equals("#quit")) {
+        // quit this room
+        Helper.quitRoom();
+        return false;
 
-          System.out.println("[show members] [username] [name]");
-          for(String key: result.keySet()) {
-            System.out.println("["+key+"]" +"["+result.get(key)+"]");
-          }
-          System.out.println("[Done]");
-          break;
+      } else if(args[0].equals("#remove")) {
+
+        // To delete a user in the room(should be admin or owner)
+        String username = args[1];
+        Helper.removeParticipant(username);
+
+      } else if(args[0].equals("#deleteroom")) {
+
+        // To delete this room(should be admin or owner)
+        Helper.deleteRoom();
+
+      } else if(args[0].equals("#ownerchange")) {
+        
+        // To change owner(should be admin or owner)
+        String target = args[1];
+        Helper.changeOwner(target);
+
+      } else if(args[0].equals("#showmember")) {
+
+        // show all the participant
+        Map<String, String> result = Helper.getMembers();
+
+        System.out.println("[show members] [username] [name]");
+        for(String key: result.keySet()) {
+          System.out.println("["+key+"]" +"["+result.get(key)+"]");
         }
-        default:
-          throw new Exception("");
+        System.out.println("[Done]");
+
+      } else {
+        throw new Exception("");
       }
     } catch (Exception e) {
       throw new Exception("CMD usage error!");

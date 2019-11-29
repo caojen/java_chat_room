@@ -15,7 +15,7 @@ public class UserType {
   }
 
   public static UserTypeEnum toEnum(String usertype) {
-    if(usertype == "Admin") {
+    if(usertype.equals("Admin")) {
       return UserTypeEnum.Admin;
     } else {
       return UserTypeEnum.Participant;

@@ -20,11 +20,11 @@ public class ModelType {
   } 
 
   public static ModelTypes toEnum(String s) {
-    if(s == "Admin") {
+    if(s.equals("Admin")) {
       return ModelTypes.Admin;
-    } else if(s == "Room") {
+    } else if(s.equals("Room")) {
       return ModelTypes.Room;
-    } else if(s == "Participant") {
+    } else if(s.equals("Participant")) {
       return ModelTypes.Participant;
     } else {
       return null;

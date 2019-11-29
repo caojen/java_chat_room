@@ -33,7 +33,7 @@ public class HttpRequestSender implements HttpRequest {
       for (String key : map.keySet()) {
         value = map.get(key);
         value = URLEncoder.encode(value, "utf-8");
-        if (param == "") {
+        if (param.equals("")) {
           param = param + "?" + key + "=" + value;
         } else {
           param = param + "&" + key + "=" + value;
@@ -82,7 +82,7 @@ public class HttpRequestSender implements HttpRequest {
     try {
       for(String key: map.keySet()) {
         String value = URLEncoder.encode(map.get(key), "utf-8");
-        if(param != "") {
+        if(!param.equals("")) {
           param += "&";
         }
         param += key + "=" + value;

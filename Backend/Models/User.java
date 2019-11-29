@@ -27,17 +27,22 @@ public class User {
     this.password = password;
   }
 
+  // these methods below deal with the database:
+
   /**
    * To anthenticate a user's password
    * @param password the asking password
    * @return true if success
    */
   public boolean anthenticate(String password) {
-    return this.password == password;
+    // TODO: enthenticate the password from database
+    return false;
   }
 
-
-  // these methods below deal with the database:
+  public boolean anthenticate(String username, String token) {
+    // TODO: enthenticate the token of username from database
+    return false;
+  }
 
   /**
    * To save data to database

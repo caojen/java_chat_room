@@ -3,10 +3,10 @@ package Frontend.Console;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import Frontend.Helper.Helper;
 import Frontend.Frontend.Frontend;
+import Frontend.Main;
 
 public class SenderConsole implements Consoler {
   // sender showText will not be presented in console, just store it.
@@ -68,13 +68,11 @@ class LoopForInputAndSendMessage {
       try {
         System.out.print("[input] New Message:>>>");
 
-        Scanner input = new Scanner(System.in);
-        String message = input.nextLine();
+        String message = Main.scan.nextLine();
 
-        while(message == "") {
-          message = input.nextLine();
+        while(message.equals("")) {
+          message = Main.scan.nextLine();
         }
-        input.close();
 
         if(message.charAt(0) == '#' && message.length() > 1 && message.charAt(1) != '#') {
           // The 'message' is a command, call to class.CMD
@@ -107,7 +105,7 @@ class LoopForInputAndSendMessage {
         // send it:
         Map<String, String> result = Helper.sendMessage(m);
 
-        if(result.get("status") != "200") {
+        if(!result.get("status").equals("200")) {
           throw new Exception("[Failed] Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
         }
         
