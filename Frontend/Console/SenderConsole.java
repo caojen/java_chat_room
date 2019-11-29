@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import Frontend.Helper.Helper;
+import Frontend.Frontend.Frontend;
 
 public class SenderConsole implements Consoler {
   // sender showText will not be presented in console, just store it.
@@ -61,7 +62,7 @@ class SenderRunningClass implements Runnable {
 
 class LoopForInputAndSendMessage {
   public void start() {
-    while(true) {
+    while(Frontend.running == true) {
       // loop:
       //   get input(one line) and sent to backend
       try {
@@ -69,6 +70,35 @@ class LoopForInputAndSendMessage {
 
         Scanner input = new Scanner(System.in);
         String message = input.nextLine();
+
+        while(message == "") {
+          message = input.nextLine();
+        }
+        input.close();
+
+        if(message.charAt(0) == '#' && message.length() > 1 && message.charAt(1) != '#') {
+          // The 'message' is a command, call to class.CMD
+          try {
+            boolean Continue = CMD.execute(message);
+            if(Continue == false) {
+              Frontend.running = false;
+              break;
+            } else {
+              System.out.println("[Command Execute Result] Done");
+            }
+          } catch (Exception e) {
+            System.out.print("[Command Execute Failed] ");
+            e.printStackTrace();
+          }
+
+          Thread.sleep(200);
+          continue;
+
+        } else if(message.charAt(0) == '#') {
+          StringBuffer tmp = new StringBuffer(message);
+          tmp.delete(0,1);
+          message = tmp.toString();
+        }
 
         // format message:
         Map<String, String> m = new HashMap<String, String>();
@@ -78,10 +108,8 @@ class LoopForInputAndSendMessage {
         Map<String, String> result = Helper.sendMessage(m);
 
         if(result.get("status") != "200") {
-          input.close();
           throw new Exception("[Failed] Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
         }
-        input.close();
         
         System.out.println("[Succeed] Message Send Success!");
 

@@ -10,7 +10,8 @@ import Frontend.Console.SenderConsole;
 import Frontend.Helper.Helper;
 
 public class Frontend {
-  // private static Helper helper = new Helper();
+  // if the console is running...
+  public static boolean running = false;
 
   public static void start() {
     System.out.println("Welcome to Chat-Room Client!");
@@ -29,6 +30,7 @@ public class Frontend {
     }
 
     // after enter room, sender console and receive console should begin...
+    Frontend.running = true;
     new SenderConsole().run();
     new ReceiverConsole().run();
   }

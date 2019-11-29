@@ -16,7 +16,16 @@ public class Configuation {
   public static String allRoom = "room/all/";
   // enter room:
   public static String enterRoom = "room/enter/";
-
+  // quit room:
+  public static String quitRoom = "room/quit/";
+  // remove participant:
+  public static String removeParticipant = "room/remove/";
+  // delete room:
+  public static String deleteRoom = "room/delete/";
+  // change owner:
+  public static String changeOwner = "room/change/";
+  // get all members:
+  public static String getMembers = "room/members/";
   // ... more configuations...
 
   // user's information:

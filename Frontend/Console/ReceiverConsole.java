@@ -3,6 +3,7 @@ package Frontend.Console;
 import java.util.Map;
 
 import Frontend.Helper.Helper;
+import Frontend.Frontend.Frontend;
 
 import java.util.LinkedHashMap;
 
@@ -59,7 +60,7 @@ public class ReceiverConsole implements Consoler {
 
 class LoopForReceive {
   public void start() {
-    while(true) {
+    while(Frontend.running == true) {
       // loop:
       //    ask for new message from server
       //    get the last key of this 'showText', if showText is null, last_key wiil be null.
@@ -72,6 +73,9 @@ class LoopForReceive {
             last_key = key;
           }
         }
+        if(Frontend.running == false) {
+          break;
+        }
         Map<String, String> result = Helper.getMessage(last_key);
         for(String key: result.keySet()) {
           ReceiverConsole.showText.put(key, result.get(key));
@@ -80,6 +84,7 @@ class LoopForReceive {
 
         Thread.sleep(500);
       } catch (Exception e) {
+        Frontend.running = false;
         e.printStackTrace();
       }
     }

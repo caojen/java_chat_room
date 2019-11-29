@@ -36,26 +36,21 @@ public class Helper {
    * @param last_key the last key of show_text. if is null, server will return the last three message.
    * @return a message map in order. (can be added directly to show_text)
    */
-  public static Map<String, String> getMessage(String last_key) {
-    try {
-      Map<String, String> message = new HashMap<String, String>();
-      message.put("username", Configuation.get_username());
-      message.put("token", Configuation.get_token());
-      message.put("room", Configuation.get_room_id());
+  public static Map<String, String> getMessage(String last_key) throws Exception {
+    Map<String, String> message = new HashMap<String, String>();
+    message.put("username", Configuation.get_username());
+    message.put("token", Configuation.get_token());
+    message.put("room", Configuation.get_room_id());
 
-      if(last_key == null) {
-        message.put("last_key", "null");
-      } else {
-        message.put("last_key", last_key);
-      }
-
-      Map<String, String> result = Helper.http.post(Configuation.ApiPrifix + Configuation.getMessage, message);
-      
-      return toMap(result.get("data"));
-    } catch (Exception e) {
-      e.printStackTrace();
+    if(last_key == null) {
+      message.put("last_key", "null");
+    } else {
+      message.put("last_key", last_key);
     }
-    return null;
+
+    Map<String, String> result = Helper.http.post(Configuation.ApiPrifix + Configuation.getMessage, message);
+    
+    return toMap(result.get("data"));
   }
 
   public static Map<String, String> login(String username, String password) {
@@ -153,4 +148,96 @@ public class Helper {
     }
     return ret;
   }
+
+  /**
+   * quit the room
+   * @throws Exception if the user is the owner
+   */
+  public static void quitRoom() throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
+
+    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.quitRoom, body);
+
+    if(result.get("status") != "200") {
+      throw new Exception("Cannot quit because of " + result.get("message"));
+    }
+  }
+
+  /**
+   * Remove a participant from the room
+   * @param username the target
+   * @throws Exception  if permission defined
+   */
+  public static void removeParticipant(String username) throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("target", URLEncoder.encode(username, "utf-8"));
+    body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
+
+    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.removeParticipant, body);
+
+    if(result.get("status") != "200") {
+      throw new Exception("Cannot remove because of " + result.get("message"));
+    }
+  }
+  /**
+   * Delete the Room
+   * @throws Exception if permission defined
+   */
+  public static void deleteRoom() throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
+
+    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.deleteRoom, body);
+
+    if(result.get("status") != "200") {
+      throw new Exception("Cannot delete because of " + result.get("message"));
+    }
+  }
+
+  /**
+   * Change owner of room
+   * @param username the target's username
+   * @throws Exception  if permission defined
+   */
+  public static void changeOwner(String username) throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
+    body.put("target", URLEncoder.encode(username, "utf-8"));
+
+    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.changeOwner, body);
+
+    if(result.get("status") != "200") {
+      throw new Exception("Cannot delete because of " + result.get("message"));
+    }
+  }
+
+  public static Map<String, String> getMembers() throws Exception {
+    Map<String, String> body = new HashMap<>();
+
+    body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
+
+    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.getMembers, body);
+
+    if(result.get("status") != "200") {
+      throw new Exception(result.get("message"));
+    }
+
+    String members = result.get("data");
+
+    return Helper.toMap(members);
+  }
 }
+
