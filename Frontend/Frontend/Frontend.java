@@ -2,12 +2,13 @@ package Frontend.Frontend;
 
 import java.net.URLDecoder;
 import java.util.Map;
-import java.util.Scanner;
 
 import Frontend.Configuation.Configuation;
 import Frontend.Console.ReceiverConsole;
 import Frontend.Console.SenderConsole;
 import Frontend.Helper.Helper;
+
+import Frontend.Main;
 
 public class Frontend {
   // if the console is running...
@@ -41,16 +42,16 @@ public class Frontend {
    */
   private static boolean switch_start_mode() {
     System.out.println("[choose mode] 1->login; 2->register");
-    Scanner scan = new Scanner(System.in);
-    int input = scan.nextInt();
-    scan.close();
-    if(input == 1) {
+    
+    String input = Main.scan.nextLine();
+    
+    if(input.equals("1")) {
       if(login_require() == true) {
         return true;    
       } else {
         return false;
       }
-    } else if(input == 2) {
+    } else if(input.equals("2")) {
       register_user();
       return false;
     } else {
@@ -65,69 +66,57 @@ public class Frontend {
    */
   private static boolean login_require() {
     System.out.print("[login required] Please type your username(q to back): ");
-    Scanner scan = new Scanner(System.in);
-    String username = scan.nextLine();
-    if(username == "q") {
-      scan.close();
+
+    String username = Main.scan.nextLine();
+    if(username.equals("q") {
       return false;
     }
 
     System.out.print("[password required] Please type your password(q to back): ");
-    String password = scan.nextLine();
-    if(password == "q") {
-      scan.close();
+    String password = Main.scan.nextLine();
+    if(password.equals("q")) {
       return false;
     }
 
     Map<String, String> login_result = Helper.login(username, password);
-    if(login_result.get("status") != "200") {
+    if(login_result.get("status").equals("200")) {
       System.out.println("[login failed] username not exists or password error!");
-      scan.close();
       return false;
     }
 
     System.out.println("[login success]");
-    scan.close();
     return true;
   }
 
   private static void register_user() {
-    Scanner scan = new Scanner(System.in);
-
     System.out.println("[register] Type q anytime to quit!");
     System.out.print("[register username] Please type your new username: ");
-    String username = scan.nextLine();
-    if(username == "q") {
-      scan.close();
+    String username = Main.scan.nextLine();
+    if(username.equals("q")) {
       return;
     }
 
     System.out.print("[register password] Please type your password: ");
-    String password = scan.nextLine();
-    if(password == "q") {
-      scan.close();
+    String password = Main.scan.nextLine();
+    if(password.equals("q")) {
       return;
     }
 
     System.out.print("[register email] Please type your Email address: ");
-    String email = scan.nextLine();
-    if(email == "q") {
-      scan.close();
+    String email = Main.scan.nextLine();
+    if(email.equals("q")) {
       return;
     }
 
     System.out.print("[register phone] Please type your phone number: ");
-    String phone = scan.nextLine();
-    if(phone == "q") {
-      scan.close();
+    String phone = Main.scan.nextLine();
+    if(phone.equals("q")) {
       return;
     }
 
-    scan.close();
-
     Map<String, String> register_result = Helper.register(username, password, email, phone);
 
-    if(register_result.get("status") != "200") {
+    if(register_result.get("status").equals("200")) {
       try {
         System.out.println("[register failed] " + URLDecoder.decode(register_result.get("message"), "utf-8"));
       } catch (Exception e) {
@@ -152,14 +141,10 @@ public class Frontend {
     }
     System.out.println("[room select] Please type room id to enter the room:");
 
-    Scanner scan = new Scanner(System.in);
-
-    String roomid = scan.nextLine();
-    
-    scan.close();
+    String roomid = Main.scan.nextLine();
 
     Map<String, String> enterResult = Helper.enterRoom(roomid);
-    if(enterResult.get("status") != "200") {
+    if(enterResult.get("status").equals("200")) {
       System.out.println("[room select failed] " + enterResult.get("message"));
       return false;
     } else {

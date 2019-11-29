@@ -1,12 +1,12 @@
 package Frontend;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Scanner;
 
 import Frontend.Frontend.Frontend;
 
 public class Main {
 
+  public static Scanner scan = new Scanner(System.in);
   /**
    * init the Frontend
    * control will pass to class Frontend
