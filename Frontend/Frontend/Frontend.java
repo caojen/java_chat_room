@@ -42,15 +42,15 @@ public class Frontend {
   private static boolean switch_start_mode() {
     System.out.println("[choose mode] 1->login; 2->register");
     Scanner scan = new Scanner(System.in);
-    String input = scan.nextLine();
+    int input = scan.nextInt();
     scan.close();
-    if(input == "1") {
+    if(input == 1) {
       if(login_require() == true) {
         return true;    
       } else {
         return false;
       }
-    } else if(input == "2") {
+    } else if(input == 2) {
       register_user();
       return false;
     } else {
