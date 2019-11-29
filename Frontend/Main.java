@@ -13,6 +13,11 @@ public class Main {
    * @param args no-used
    */
   public static void main(String args[]) {
-    Frontend.start();
+    try {
+      Frontend.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("The Client Stop because of Error!");
+    }
   }
 }
