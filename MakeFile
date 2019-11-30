@@ -20,3 +20,6 @@ runfrontend:
 
 runbackend:
 	java Backend.Main
+
+debugf:
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && java Frontend.Main

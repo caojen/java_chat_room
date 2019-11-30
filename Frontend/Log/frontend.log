@@ -1,1 +1,173 @@
-# frontend.log
+[2019-43-30 03:43:36]
+[2019-43-30 03:43:36][map]
+[password]=asdfjlksdajf
+[method]=POST
+[username]=psfdajpdof
+
+[2019-43-30 03:43:36]
+[response]
+status=200
+data=ok
+message=done
+
+[2019-45-30 03:45:19]
+[2019-45-30 03:45:19][map]
+[password]=asldkfjlk
+[method]=POST
+[username]=alskdfjl
+
+[2019-45-30 03:45:19]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-46-30 03:46:15]
+[2019-46-30 03:46:15][map]
+[password]=asdlkfjalsdkf
+[method]=POST
+[username]=lasdkjflkasd
+
+[2019-46-30 03:46:15]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-50-30 03:50:28]
+[2019-50-30 03:50:28][map]
+[password]=asdlfkjlk
+[method]=POST
+[username]=opojasdfp
+
+[2019-50-30 03:50:28]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-51-30 03:51:02]
+[2019-51-30 03:51:02][map]
+[password]=asdlkfjlk
+[method]=POST
+[username]=kasdjlfkj
+
+[2019-51-30 03:51:02]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-17-30 04:17:46]
+[2019-17-30 04:17:46][map]
+[password]=asldkfklsdjf
+[method]=POST
+[username]=askdjfkasjdlf
+
+[2019-17-30 04:17:46]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-18-30 04:18:18]
+[2019-18-30 04:18:18][map]
+[password]=asdlfkj
+[method]=POST
+[username]=asldkfj
+
+[2019-18-30 04:18:18]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-20-30 04:20:00]
+[2019-20-30 04:20:00][map]
+[password]=aksdflkj
+[method]=POST
+[username]=alskdfjlksa
+
+[2019-20-30 04:20:01]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+
+[2019-20-30 04:20:47]
+[2019-20-30 04:20:47][map]
+[password]=asdfkjk
+[method]=POST
+[username]=aslkdfjlkasd
+
+[2019-20-30 04:20:47]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+username=aklsjdf
+
+[2019-20-30 04:20:47]
+[2019-20-30 04:20:47][map]
+[method]=GET
+
+[2019-20-30 04:20:47]
+[response] java.io.BufferedReader@3b9a45b3
+[2019-21-30 04:21:41]
+[2019-21-30 04:21:41][map]
+[password]=alskdfjklasdf
+[method]=POST
+[username]=asldkfjklasdfj
+
+[2019-21-30 04:21:41]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+username=aklsjdf
+
+[2019-21-30 04:21:41]
+[2019-21-30 04:21:41][map]
+[method]=GET
+
+[2019-21-30 04:21:41]
+[response] java.io.BufferedReader@3b9a45b3
+[2019-22-30 04:22:06]
+[2019-22-30 04:22:06][map]
+[password]=asdlkfjlasdkf
+[method]=POST
+[username]=laskdjflkjasdl
+
+[2019-22-30 04:22:07]
+[response]
+status=200
+data=ok
+message=done
+token=123456
+usertype=Admin
+username=aklsjdf
+
+[2019-22-30 04:22:07]
+[2019-22-30 04:22:07][map]
+[method]=GET
+
+[2019-22-30 04:22:07]
+[response] java.io.BufferedReader@3b9a45b3

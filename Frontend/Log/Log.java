@@ -18,6 +18,7 @@ public class Log {
    */
   public static void write(String log) {
     try {
+      log = "["+Time.getTime()+"]\n" + log;
       File logFile = new File(Configuation.LogPath);
       FileOutputStream fos = null;
       if(logFile.exists() == false) {
@@ -54,7 +55,7 @@ public class Log {
     } else {
       str.append("[map]\n");
       for(String key: map.keySet()) {
-        str.append("[" + key + "]="+map.get(key));
+        str.append("[" + key + "]="+map.get(key)+"\n");
       }
     }
     return str.toString();

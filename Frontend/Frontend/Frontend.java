@@ -79,7 +79,7 @@ public class Frontend {
     }
 
     Map<String, String> login_result = Helper.login(username, password);
-    if(login_result.get("status").equals("200")) {
+    if(!login_result.get("status").equals("200")) {
       System.out.println("[login failed] username not exists or password error!");
       return false;
     }
@@ -116,7 +116,7 @@ public class Frontend {
 
     Map<String, String> register_result = Helper.register(username, password, email, phone);
 
-    if(register_result.get("status").equals("200")) {
+    if(!register_result.get("status").equals("200")) {
       try {
         System.out.println("[register failed] " + URLDecoder.decode(register_result.get("message"), "utf-8"));
       } catch (Exception e) {

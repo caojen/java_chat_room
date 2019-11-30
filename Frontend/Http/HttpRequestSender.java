@@ -54,6 +54,9 @@ public class HttpRequestSender implements HttpRequest {
       }
 
       connection.disconnect();
+
+      Log.write("[response] " + br.toString());
+
       return formatHttpResult(result.toString());
     } catch (Exception e) {
       throw new Exception(e);
@@ -103,6 +106,8 @@ public class HttpRequestSender implements HttpRequest {
       result.append(receiveData + '\n');
     }
     connection.disconnect();
+
+    Log.write("[response]\n" + result.toString());
 
     return formatHttpResult(result.toString());
   }
