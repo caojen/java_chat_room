@@ -1,11 +1,10 @@
 package Backend.Models.Users;
 
+import Backend.Control.Control;
 import Backend.Models.Room;
 import Backend.Models.User;
 
 public final class Participant extends User{
-  public String name;
-  public String age;
   public String email;
   public String phone;
 
@@ -15,9 +14,17 @@ public final class Participant extends User{
    * To create a new room
    * @return a new room with 
    */
-  public Room create_room() {
-    // TODO: create a room
-    return null;
+  public Room create_room(String roomid) {
+    if(Control.create_room(roomid, this.getUsername())) {
+
+      Room r = new Room();
+      r.setRoomId(roomid);
+      r.setOwner((User) this);
+      return r;
+
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -26,8 +33,11 @@ public final class Participant extends User{
    * @return true if success
    */
   public boolean delete_room(String room_id) {
-    // TODO: delete a room with id
-    return true;
+    if(Control.delete_room(room_id)) {
+      return true;
+    } else{
+      return false;
+    }
   }
 
   /**
@@ -37,8 +47,11 @@ public final class Participant extends User{
    * @return true if success
    */
   public boolean delete_member(String room_id, String participant) {
-    // TODO: delete a member with id
-    return true;
+    if(Control.delete_participant(room_id, participant)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -46,6 +59,7 @@ public final class Participant extends User{
    * @param room_id The room's id
    * @return true if success
    */
+  @Deprecated
   public boolean exit_room(String room_id) {
     // TODO: exit room from storage
     return true;
@@ -57,8 +71,11 @@ public final class Participant extends User{
    * @return true if success
    */
   public boolean access_room(String room_id) {
-    // TODO: ...
-    return true;
+    if(Control.add_participant(room_id, this.getUsername())) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
@@ -69,8 +86,7 @@ public final class Participant extends User{
    * @return true if success
    */
   public boolean give_room(String room_id, String to_user) {
-    // TODO: ......
-    return true;
+    return Control.changeOwner(room_id, this.getUsername(), to_user);
   }
 
 
@@ -80,7 +96,7 @@ public final class Participant extends User{
    * To save to the database
    */
   public void save() {
-    // TODO: ...
+    Control.save_participant(this);
   }
 
   /**
@@ -89,13 +105,13 @@ public final class Participant extends User{
    * @return Participant
    */
   public static Participant get(String username) {
-    // TODO: ...
-    return null;
+    return Control.get_participant(username);
   }
 
   /**
    * Delete this user
    */
+  @Deprecated
   public void delete() {
     // TODO: ...
   }
@@ -103,7 +119,16 @@ public final class Participant extends User{
   /**
    * To create a Participant
    */
-  public static void create() {
+  public static Participant create(String username, String password, String email, String phone) {
+    Control.create_participant(username, password, email, phone);
 
+    Participant p = new Participant();
+
+    p.setUsername(username);
+    p.setPassword(password);
+    p.email = email;
+    p.phone = phone;
+
+    return p;
   }
 }

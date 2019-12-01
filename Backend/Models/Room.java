@@ -35,7 +35,6 @@ public class Room implements Models{
    * Note that the id will not be restore in database.
    * @param id the new id
    */
-  @Deprecated
   public void setRoomId(String id) {
     this.room_id = id;
   }

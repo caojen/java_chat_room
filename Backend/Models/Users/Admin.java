@@ -1,5 +1,6 @@
 package Backend.Models.Users;
 
+import Backend.Control.Control;
 import Backend.Models.User;
 
 public final class Admin extends User{
@@ -14,8 +15,7 @@ public final class Admin extends User{
    * @return true if success
    */
   public boolean delete_room(String room_id) {
-    // TODO: delete a room with id
-    return true;
+    return Control.delete_room(room_id);
   }
   
   /**
@@ -25,8 +25,7 @@ public final class Admin extends User{
    * @return true if success
    */
   public boolean delete_member(String room_id, String participant) {
-    // TODO: delete a member with id
-    return true;
+    return Control.delete_participant(room_id, participant);
   }
   /**
    * Enter a room...
@@ -34,9 +33,9 @@ public final class Admin extends User{
    * @return true if success
    */
   public boolean access_room(String room_id) {
-    // TODO: ...
-    return true;
+    return Control.add_participant(room_id, this.getUsername());
   }
 
   // to deal with database
+  // no information, so ignore this part.
 }

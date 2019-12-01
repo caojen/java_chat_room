@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import Backend.Models.Users.Participant;
+
 public class Control {
   
   public static boolean create_participant(String name, String password, String email, String phone) {
@@ -399,6 +401,96 @@ public class Control {
       return true;
     } catch (Exception e) {
       return false;
+    }
+  }
+
+  public static boolean changeOwner(String roomid, String oldOwner, String newOwner) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "update room set owner = '" + newOwner + "' where roomid = '" + roomid + "' and owner = '" + oldOwner + "';";
+
+      state.executeUpdate(sql);
+
+      state.close();
+      con.commit();
+      con.close();
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  /**
+   * remember to call the user.save if password change
+   * @param participant
+   * @return
+   */
+  public static boolean save_participant(Participant participant) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "update participant set email = '" + participant.email + "', phone = '" + participant.phone + "' where username = '" + participant.getUsername() + "';";
+
+      state.executeUpdate(sql);
+
+      state.close();
+      con.commit();
+      con.close();
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  /**
+   * 
+   * @param username
+   * @return participant (null if not exists)
+   */
+  public static Participant get_participant(String username) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "select * from participant where username = '" + username + "';";
+
+      ResultSet rs = state.executeQuery(sql);
+
+      if(rs.next()) {
+        Participant p = new Participant();
+
+        p.email = rs.getString("email");
+        p.phone = rs.getString("phone");
+
+        p.setUsername(username);
+        p.setPassword("");
+        state.close();
+        con.commit();
+        con.close();
+        return p;
+      } else {
+        state.close();
+        con.commit();
+        con.close();
+        return null;
+      }
+    } catch (Exception e) {
+      return null;
     }
   }
 }
