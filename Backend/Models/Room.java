@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Backend.Control.Control;
 import Backend.Models.ModelType.ModelTypes;
 
 public class Room implements Models{
@@ -69,6 +70,19 @@ public class Room implements Models{
     }
   }
 
+  public void setParticipants(List<User> participants) {
+    for(User us: participants) {
+      User n = new User();
+      n.setUsername(us.getUsername());
+      n.setPassword("");
+      this.participants.add(us);
+    }
+  }
+
+  public List<User> getParticipants() {
+    return this.participants;
+  }
+
   /**
    * To judge if a participant is already in the list
    * @param participant
@@ -123,14 +137,14 @@ public class Room implements Models{
    * To save this Room to Storage
    */
   public void save() {
-    // TODO: save data with 'control' here
+    Control.save_room(this);
   }
 
   /**
    * To delete this Room to Storage
    */
   public void delete() {
-    // TODO: delete this room with 'control' here
+    Control.delete_room(this.room_id);
   }
 
   /**
@@ -140,7 +154,7 @@ public class Room implements Models{
    */
   public static Room LoadRoom(String id) {
     // TODO: load a room with 'control' here
-    return null;
+    return Control.get_room(id);
   }
 
   /**
@@ -157,8 +171,8 @@ public class Room implements Models{
    * @param Owner The User Owner
    * @return The New Room
    */
-  public static Room create(User Owner) {
-    // TODO: create a room with 'control' here
+  public static Room create(String roomid, User Owner) {
+    Control.create_room(roomid, Owner.getUsername());
     return null;
   }
 }

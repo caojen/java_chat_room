@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import Backend.Models.Room;
+import Backend.Models.User;
 import Backend.Models.Users.Participant;
 
 public class Control {
@@ -491,6 +495,95 @@ public class Control {
       }
     } catch (Exception e) {
       return null;
+    }
+  }
+
+  /**
+   * 
+   * @param roomid
+   * @return Room (null if not exist)
+   */
+  public static Room get_room(String roomid) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+   
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "select * from room where roomid = '" + roomid + "';";
+
+      ResultSet rs = state.executeQuery(sql);
+
+      if(rs.next()) {
+        Room r = new Room();
+        
+        User owner = new User();
+        owner.setUsername(rs.getString("username"));
+        owner.setPassword("");
+        r.setOwner(owner);
+
+        r.setRoomId(roomid);
+
+        List<User> lu = new ArrayList<User>();
+
+        String participants = rs.getString("participants");
+        String[] ps = participants.split(",");
+        for(String s: ps) {
+          if(!s.equals("")) {
+            User u = new User();
+            u.setUsername(s);
+            u.setPassword("");
+            lu.add(u);
+          }
+        }
+        r.setParticipants(lu);
+
+        state.close();
+        con.commit();
+        con.close();
+
+        return r;
+      } else {
+        state.close();
+        con.commit();
+        con.close();
+        return null;
+      }
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  public static void save_room(Room room) {
+    String roomid = room.getRoomId();
+    String owner = room.getOwner().getUsername();
+    List<User> participants = room.getParticipants();
+
+    String p = "";
+
+    for(User u: participants) {
+      p += u.getUsername() + ",";
+    }
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "update room set owner = '" + owner + "', participants = '" + p + "' where roomid = '" + roomid + "';";
+
+      state.executeUpdate(sql);
+
+      state.close();
+      con.commit();
+      con.close();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }
