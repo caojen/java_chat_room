@@ -5,6 +5,7 @@ public class ModelType {
     Room,
     Admin,
     Participant,
+    User,
   };
 
   public static String toString(ModelTypes t) {
@@ -14,6 +15,8 @@ public class ModelType {
       return "Admin";
     } else if(t == ModelTypes.Participant) {
       return "Participant";
+    } else if(t == ModelTypes.User) {
+      return "User";
     } else {
       return "[ErrorType]";
     }
@@ -26,6 +29,8 @@ public class ModelType {
       return ModelTypes.Room;
     } else if(s.equals("Participant")) {
       return ModelTypes.Participant;
+    } else if(s.equals("User")) {
+      return ModelTypes.User;
     } else {
       return null;
     }

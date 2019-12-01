@@ -1,6 +1,9 @@
 package Backend.Models;
 
-public class User {
+import Backend.Control.Control;
+import Backend.Models.ModelType.ModelTypes;
+
+public class User implements Models {
   private String username = null;
 
   public String getUsername() {
@@ -16,12 +19,12 @@ public class User {
   @Deprecated
   /**
    * Deprecated because of security. Use anthenticate to check id instand.
+   * 
    * @return String
    */
   public String getPassword() {
     return this.password;
   }
-
 
   public void setPassword(String password) {
     this.password = password;
@@ -31,49 +34,66 @@ public class User {
 
   /**
    * To anthenticate a user's password
-   * @param password the asking password
-   * @return true if success
+   * 
+   * @return token if success (null if error)
    */
-  public boolean anthenticate(String password) {
-    // TODO: enthenticate the password from database
-    return false;
+  public String anthenticate() {
+    return Control.login(this.username, this.password);
   }
 
-  public boolean anthenticate(String username, String token) {
-    // TODO: enthenticate the token of username from database
-    return false;
+  public boolean anthenticate(String token) {
+    return Control.login_required(this.username, token);
   }
 
   /**
    * To save data to database
    */
   public void save() {
-    // TODO: save data with 'control' here
+    Control.save_user(this.username, this.password);
   }
 
   /**
    * To create a user
+   * 
    * @return the new User
    */
+  @Deprecated
   public static User create_user() {
-    // TODO: create a new user with 'control' here
     return null;
   }
 
   /**
    * Delete this user. The Admin or Participant will be deleted in database.
    */
+  @Deprecated
   public void delete_user() {
     // TODO: delete the user with 'control' here
   }
 
   /**
    * To get a specific User
+   * 
    * @param username The querying username
-   * @return User
+   * @return User(null if not exist)
    */
   public static User get_user(String username) {
-    // TODO: get the user from database
-    return null;
+
+    if(!Control.exists_user(username)) {
+      return null;
+    }
+
+    User ret = new User();
+    ret.username = username;
+    return ret;
+  }
+
+  @Override
+  public String getTypeStr() {
+    return ModelType.toString(getType());
+  }
+
+  @Override
+  public ModelTypes getType() {
+    return ModelTypes.User;
   }
 }

@@ -378,6 +378,27 @@ public class Control {
     }
 
     return sb.toString();
+  }
 
+  public static boolean save_user(String username, String password) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "update user set password = '" + password + "' where username = '" + username + "';"; 
+
+      state.executeUpdate(sql);
+
+      state.close();
+      con.commit();
+      con.close();
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 }
