@@ -1,8 +1,5 @@
 package Frontend.Console;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * A interface for dealing text(send or receive)
  */
