@@ -8,6 +8,8 @@ import java.util.Map;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import Backend.Views.View.*;
+
 public class Urls {
   private static HttpServer httpServer = null;
 
