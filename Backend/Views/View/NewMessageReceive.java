@@ -19,7 +19,7 @@ public class NewMessageReceive extends Views {
     if(exchange.getRequestMethod() != "POST") {
       exchange.sendResponseHeaders(403, 0);
       OutputStream os = exchange.getResponseBody();
-      os.write("Forbidden".getBytes("utf-8"));
+      os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
       os.close();
     } else {
       InputStream is = exchange.getRequestBody();
@@ -48,18 +48,18 @@ public class NewMessageReceive extends Views {
 
         if(user == null) {
           returnCode = 403;
-          returnMessage = "Authentication Failed";
+          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed");
         } else {
           boolean isAnthenticate = user.anthenticate(token);
 
           if(!isAnthenticate) {
             returnCode = 403;
-            returnMessage = "Authentication Failed";
+            returnMessage = "status=403&" + URLEncoder.encode("Authentication Failed", "utf-8");
           } else {
             Room room = Room.LoadRoom(roomid);
             if(room == null) {
               returnCode = 402;
-              returnMessage = "No Such Room";
+              returnMessage = "status=402&" + URLEncoder.encode("No Such Room", "utf-8");
             } else {
               String message = receive.get("message");
               if(!message.equals("")) {
@@ -67,7 +67,7 @@ public class NewMessageReceive extends Views {
                 room.save();
               }
               returnCode = 200;
-              returnMessage = "Successfully Sent";
+              returnMessage = "status=200&" + URLEncoder.encode("Successfully Sent", "utf-8");
             }
           }
           
@@ -75,7 +75,7 @@ public class NewMessageReceive extends Views {
 
       } catch (Exception e) {
         returnCode = 400;
-        returnMessage = "Message_not_success";
+        returnMessage = "status=400&" + URLEncoder.encode("Message_not_success", "utf-8");
       }
       
       exchange.sendResponseHeaders(returnCode, 0);
