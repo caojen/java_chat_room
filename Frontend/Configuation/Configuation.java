@@ -4,7 +4,7 @@ import Frontend.Configuation.UserType.UserTypeEnum;
 
 public class Configuation {
   // test, just use static valuable.
-  public static String ApiPrifix = "http://localhost:8080/";
+  public static String ApiPrifix = "http://localhost:8888/";
   // for console:
   public static String sendMessage = "send/";
   public static String getMessage = "get/";
