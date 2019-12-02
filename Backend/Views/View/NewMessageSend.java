@@ -19,7 +19,7 @@ public class NewMessageSend extends Views {
         if(exchange.getRequestMethod() != "POST") {
             exchange.sendResponseHeader(403, 0);
             OutputStream os = exchange.getResponseBody();
-            os.write("Forbidden".getBytes("utf-8"));
+            os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
         } else {
             InputStream is = exchange.getRequestBody();
@@ -48,29 +48,29 @@ public class NewMessageSend extends Views {
 
                 if(user == null) {
                     returnCode = 403;
-                    returnMessage = "Authentication Failed";
+                    returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
                 } else {
                     boolean isAnthenticate = user.anthenticate(token);
 
                     if(!isAnthenticate) {
                         returnCode = 403;
-                        returnMessage = "Anthentication Failed";
+                        returnMessage = "status=403&message=" + URLEncoder.encode("Anthentication Failed", "utf-8");
                     } else {
                         Room room = Room.LoadRoom(roomid);
                         if(room == null) {
                             returnCode = 402;
-                            returnMessage = "No Such Room";
+                            returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room","utf-8");
                         } else {
                             String last_key = receive.get("last_key");
                             Map<String, String> m = room.get_message(last_key);
-                            returnMessage = Urls.mapToString(m);
+                            returnMessage = "status=200&data=" + URLEncoder.encode(Urls.mapToString(m),"utf-8");
                             returnCode =  200;
                         }
                     }
                 } 
             } catch (Exception e) {
                 returnCode = 400; 
-                returnMessage = "Message_not_success";     
+                returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");     
             }
 
             exchange.sendResponseHeader(returnCode, 0);

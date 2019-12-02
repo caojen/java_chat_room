@@ -18,7 +18,7 @@ public class UserLogin extends Views {
         if(exchange.getRequestMethod() != "POST") {
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
-            os.write("Forbidden".getBytes("utf-8"));
+            os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
         } else{
             InputStream is = exchange.getResponseBody();
@@ -45,15 +45,15 @@ public class UserLogin extends Views {
                 String token = user.anthenticate();
                 if(token == null) {
                     returnCode = 403;
-                    returnMessage = "Anthenticate Failed";
+                    returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed", "utf-8");
                 } else {
                     returnCode = 200;
-                    returnMessage = "token=" + token;
+                    returnMessage = "status=200&token=" + URLEncoder.encode(token, "utf-8");
                     // TODO: returnMessage should add username and usertype;
                 }
             } catch (Exception e) {
                 returnCode = 400;
-                returnMessage = "Message_not_success";
+                returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
 
             exchange.sendResponseHeaders(returnCode, 0);

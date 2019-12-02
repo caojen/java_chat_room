@@ -54,12 +54,12 @@ public class NewMessageReceive extends Views {
 
           if(!isAnthenticate) {
             returnCode = 403;
-            returnMessage = "status=403&" + URLEncoder.encode("Authentication Failed", "utf-8");
+            returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
           } else {
             Room room = Room.LoadRoom(roomid);
             if(room == null) {
               returnCode = 402;
-              returnMessage = "status=402&" + URLEncoder.encode("No Such Room", "utf-8");
+              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
             } else {
               String message = receive.get("message");
               if(!message.equals("")) {
@@ -67,7 +67,7 @@ public class NewMessageReceive extends Views {
                 room.save();
               }
               returnCode = 200;
-              returnMessage = "status=200&" + URLEncoder.encode("Successfully Sent", "utf-8");
+              returnMessage = "status=200&message=" + URLEncoder.encode("Successfully Sent", "utf-8");
             }
           }
           
@@ -75,7 +75,7 @@ public class NewMessageReceive extends Views {
 
       } catch (Exception e) {
         returnCode = 400;
-        returnMessage = "status=400&" + URLEncoder.encode("Message_not_success", "utf-8");
+        returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
       }
       
       exchange.sendResponseHeaders(returnCode, 0);
