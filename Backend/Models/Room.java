@@ -182,4 +182,8 @@ public class Room implements Models{
   public Map<String, String> get_message(String time) {
     return Control.get_message(this.room_id, time);
   }
+
+  public static Map<String, String> all() {
+    return Control.get_all_room();
+  }
 }

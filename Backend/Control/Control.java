@@ -591,4 +591,37 @@ public class Control {
       e.printStackTrace();
     }
   }
+
+  /**
+   * @return Map<roomid, owner>
+   */
+  public static Map<String, String> get_all_room() {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "select * from room";
+    
+      ResultSet rs = state.executeQuery(sql);
+
+      Map<String, String> res = new HashMap<>();
+
+      while(rs.next()) {
+        String roomid = rs.getString("roomid");
+        String owner = rs.getString("owner");
+        res.put("roomid", "owner");
+      }
+      
+      state.close();
+      con.commit();
+      con.close();
+      return res;
+    } catch (Exception e) {
+      return null;
+    }
+  }
 }
