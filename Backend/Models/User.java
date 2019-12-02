@@ -4,6 +4,17 @@ import Backend.Control.Control;
 import Backend.Models.ModelType.ModelTypes;
 
 public class User implements Models {
+
+  @Override
+  public String getTypeStr() {
+    return ModelType.toString(getType());
+  }
+
+  @Override
+  public ModelTypes getType() {
+    return ModelTypes.User;
+  }
+
   private String username = null;
 
   public String getUsername() {
@@ -87,13 +98,7 @@ public class User implements Models {
     return ret;
   }
 
-  @Override
-  public String getTypeStr() {
-    return ModelType.toString(getType());
-  }
-
-  @Override
-  public ModelTypes getType() {
-    return ModelTypes.User;
+  public String getUserType() {
+    return Control.getUserType(this.username);
   }
 }

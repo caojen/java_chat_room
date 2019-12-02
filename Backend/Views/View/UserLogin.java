@@ -47,9 +47,11 @@ public class UserLogin extends Views {
                     returnCode = 403;
                     returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed", "utf-8");
                 } else {
+
+                    String usertype = user.getUserType();
+
                     returnCode = 200;
-                    returnMessage = "status=200&token=" + URLEncoder.encode(token, "utf-8");
-                    // TODO: returnMessage should add username and usertype;
+                    returnMessage = "status=200&token=" + URLEncoder.encode(token, "utf-8") + "&username=" + URLEncoder.encode(username, "utf-8") + "&usertype=" + URLEncoder.encode(usertype, "utf-8");
                 }
             } catch (Exception e) {
                 returnCode = 400;
