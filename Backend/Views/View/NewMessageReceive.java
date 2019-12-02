@@ -77,7 +77,7 @@ public class NewMessageReceive extends Views {
         returnCode = 400;
         returnMessage = "Message_not_success";
       }
-
+      
       exchange.sendResponseHeaders(returnCode, 0);
       OutputStream os = exchange.getResponseBody();
       os.write(returnMessage.getBytes("UTF-8"));
