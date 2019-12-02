@@ -33,7 +33,7 @@ public abstract class Views implements HttpHandler {
     writeToFile(str);
   }
 
-  private static String mapToString(Map<String, String> map) {
+  protected static String mapToString(Map<String, String> map) {
     StringBuffer sb = new StringBuffer();
 
     for(String s: map.keySet()) {

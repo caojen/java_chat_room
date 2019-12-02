@@ -118,9 +118,12 @@ public class Room implements Models{
    * @param message new message
    */
   public void appendMessage(User user, String message) {
+    this.historyMessage = this.get_message("");
+
     if(this.historyMessage == null) {
       this.historyMessage = new HashMap<String, String>();
     }
+
     this.historyMessage.put(user.getUsername(), message);
   }
 
@@ -174,5 +177,9 @@ public class Room implements Models{
   public static Room create(String roomid, User Owner) {
     Control.create_room(roomid, Owner.getUsername());
     return null;
+  }
+
+  public Map<String, String> get_message(String time) {
+    return Control.get_message(this.room_id, time);
   }
 }
