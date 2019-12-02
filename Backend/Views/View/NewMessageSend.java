@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -15,9 +17,9 @@ import Backend.Models.Room;
 public class NewMessageSend extends Views {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOExcpetion {
+    public void handle(HttpExchange exchange) throws IOException {
         if(exchange.getRequestMethod() != "POST") {
-            exchange.sendResponseHeader(403, 0);
+            exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
@@ -38,7 +40,7 @@ public class NewMessageSend extends Views {
             String returnMessage = "";
 
             try {
-                Map<String, String> receive = Urls.stringToMap(sb.toString());
+                Map<String, String> receive = Views.stringToMap(sb.toString());
 
                 String username = receive.get("username");
                 String token = receive.get("token");
@@ -63,7 +65,7 @@ public class NewMessageSend extends Views {
                         } else {
                             String last_key = receive.get("last_key");
                             Map<String, String> m = room.get_message(last_key);
-                            returnMessage = "status=200&data=" + URLEncoder.encode(Urls.mapToString(m),"utf-8");
+                            returnMessage = "status=200&data=" + URLEncoder.encode(Views.mapToString(m),"utf-8");
                             returnCode =  200;
                         }
                     }
@@ -73,8 +75,8 @@ public class NewMessageSend extends Views {
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");     
             }
 
-            exchange.sendResponseHeader(returnCode, 0);
-            OutputStrem os = exchange.getResponseBody();
+            exchange.sendResponseHeaders(returnCode, 0);
+            OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));
             os.close();
         }

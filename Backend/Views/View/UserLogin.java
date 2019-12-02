@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Models.User;
-import Backend.Models.Room;
 
 public class UserLogin extends Views {
     @Override
@@ -21,7 +22,7 @@ public class UserLogin extends Views {
             os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
         } else{
-            InputStream is = exchange.getResponseBody();
+            InputStream is = exchange.getRequestBody();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader bf = new BufferedReader(isr);
 
@@ -37,7 +38,7 @@ public class UserLogin extends Views {
             String returnMessage = "";
 
             try {
-                Map<String, String> receive = Urls.stringToMap(sb.toString());
+                Map<String, String> receive = Views.stringToMap(sb.toString());
                 String username = receive.get("username");
                 String password = receive.get("password");
                 User user = User.get_user(username);
@@ -59,7 +60,7 @@ public class UserLogin extends Views {
             }
 
             exchange.sendResponseHeaders(returnCode, 0);
-            OutputStream os = exchagne.getResponseBody();
+            OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));
             os.close();
         }

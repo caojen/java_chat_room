@@ -142,8 +142,8 @@ public class Helper {
       if(ele.split("=").length != 2) {
         throw new Exception("Return_Value_Length_Exception");
       }
-      String key = URLDecoder.decode(ele.split("=")[0]);
-      String value = URLDecoder.decode(ele.split("=")[1]);
+      String key = URLDecoder.decode(ele.split("=")[0], "utf-8");
+      String value = URLDecoder.decode(ele.split("=")[1], "utf-8");
       ret.put(key, value);
     }
     return ret;

@@ -25,12 +25,12 @@ public class Control {
       Statement state = con.createStatement();
 
       String sql = "insert into participant (username, email, phone, maxroomnum, valid)" + 
-                  "values ('" + name + "', '" + mail +"', '" + phone + "'," + " 2, 1);"; 
+                  "values ('" + name + "', '" + email +"', '" + phone + "'," + " 2, 1);"; 
 
       state.executeUpdate(sql);
 
-      String sql "insert into user (username, password, token)" + 
-                "values ('" + username +"', '" + password + "', '');";
+      sql = "insert into user (username, password, token)" + 
+                "values ('" + name +"', '" + password + "', '');";
 
       state.executeUpdate(sql);
           
@@ -613,7 +613,7 @@ public class Control {
       while(rs.next()) {
         String roomid = rs.getString("roomid");
         String owner = rs.getString("owner");
-        res.put("roomid", "owner");
+        res.put(roomid, owner);
       }
       
       state.close();

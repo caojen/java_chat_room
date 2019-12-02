@@ -1,15 +1,13 @@
 package Backend.Views.View;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
-import Backend.Models.User;
 import Backend.Models.Room;
 
 public class GetAllRoom extends Views {
@@ -24,18 +22,18 @@ public class GetAllRoom extends Views {
             Map<String, String> rooms = Room.all();
             String str = "";
 
-            for(String key: room.keySet()) {
+            for(String key: rooms.keySet()) {
                 if(!str.equals("")) {
                     str = str + "&"; 
                 }
-                str = str + key + "=" + room.get(key);
+                str = str + key + "=" + rooms.get(key);
             }
 
-            String returnMessage = "status=200&data="+ URLEncoder.encode(str);
+            String returnMessage = "status=200&data="+ URLEncoder.encode(str, "utf-8");
 
             exchange.sendResponseHeaders(200, 0);
             OutputStream os = exchange.getResponseBody();
-            os.write(returnMessage.getByte("UTF-8"));
+            os.write(returnMessage.getBytes("UTF-8"));
             os.close();
         }
     }

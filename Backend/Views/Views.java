@@ -67,7 +67,7 @@ public abstract class Views implements HttpHandler {
       return map;
     }
 
-    String [] key_values = map.split("&");
+    String [] key_values = str.split("&");
 
     for(String key_value: key_values) {
       if(key_value.split("=").length != 2) {

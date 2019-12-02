@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -38,7 +40,7 @@ public class NewMessageReceive extends Views {
       String returnMessage = "";
 
       try {
-        Map<String, String> receive = Urls.stringToMap(sb.toString());
+        Map<String, String> receive = Views.stringToMap(sb.toString());
 
         String username = receive.get("username");
         String token = receive.get("token");
@@ -48,7 +50,7 @@ public class NewMessageReceive extends Views {
 
         if(user == null) {
           returnCode = 403;
-          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed");
+          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
         } else {
           boolean isAnthenticate = user.anthenticate(token);
 
@@ -63,7 +65,7 @@ public class NewMessageReceive extends Views {
             } else {
               String message = receive.get("message");
               if(!message.equals("")) {
-                room.appendMessage(message);
+                room.appendMessage(user, message);
                 room.save();
               }
               returnCode = 200;

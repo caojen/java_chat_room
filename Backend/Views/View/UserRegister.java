@@ -2,24 +2,24 @@ package Backend.Views.View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputSteam;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
-import Backend.Models.User;
-import Backend.Models.Room;
-import Backend.Models.Participant;
+import Backend.Models.Users.Participant;
 
-public class UserRegister {
+public class UserRegister extends Views {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if(exchange.getResponseMethod() != "POST") {
+        if(exchange.getRequestMethod() != "POST") {
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
-            os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")));
+            os.write((("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8"))).getBytes("utf-8"));
             os.close();
         } else {
             InputStream is = exchange.getRequestBody();
@@ -38,7 +38,7 @@ public class UserRegister {
             String returnMessage = "";
 
             try {
-                Map<String, String> receive = Urls.stringToMap(sb.toString());
+                Map<String, String> receive = Views.stringToMap(sb.toString());
 
                 String username = receive.get("username");
                 String password = receive.get("password");
