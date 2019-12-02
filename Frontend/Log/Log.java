@@ -49,7 +49,6 @@ public class Log {
    */
   private static String mapToString(Map<String, String> map) {
     StringBuffer str = new StringBuffer();
-    str.append("[" + Time.getTime() + "]");
     if(map == null) {
       str.append("[empty map]\n");
     } else {
