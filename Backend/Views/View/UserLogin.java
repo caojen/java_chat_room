@@ -49,6 +49,7 @@ public class UserLogin extends Views {
                 } else {
                     returnCode = 200;
                     returnMessage = "token=" + token;
+                    // TODO: returnMessage should add username and usertype;
                 }
             } catch (Exception e) {
                 returnCode = 400;
