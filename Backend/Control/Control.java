@@ -25,10 +25,15 @@ public class Control {
       Statement state = con.createStatement();
 
       String sql = "insert into participant (username, email, phone, maxroomnum, valid)" + 
-                  "values ('" + name + "', '" + password +"', '" + email + "', '"+ phone + "', 2, 1);"; 
+                  "values ('" + name + "', '" + mail +"', '" + phone + "'," + " 2, 1);"; 
 
       state.executeUpdate(sql);
 
+      String sql "insert into user (username, password, token)" + 
+                "values ('" + username +"', '" + password + "', '');";
+
+      state.executeUpdate(sql);
+          
       state.close();
       con.commit();
       con.close();

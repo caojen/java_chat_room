@@ -120,7 +120,9 @@ public final class Participant extends User{
    * To create a Participant
    */
   public static Participant create(String username, String password, String email, String phone) {
-    Control.create_participant(username, password, email, phone);
+    if(Control.create_participant(username, password, email, phone) == false) {
+      return null;
+    }
 
     Participant p = new Participant();
 
