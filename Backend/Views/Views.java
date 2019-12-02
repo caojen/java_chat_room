@@ -11,6 +11,8 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.net.URLDecoder;
+
 import com.sun.net.httpserver.HttpExchange;
 
 public abstract class Views implements HttpHandler {
@@ -56,5 +58,28 @@ public abstract class Views implements HttpHandler {
     OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8");
     osw.write(str);
     osw.close();
+  }
+
+  protected static Map<String, String> stringToMap(String str) throws Exception {
+    Map<String, String> map = new HashMap<>();
+
+    if(str.equals("")) {
+      return map;
+    }
+
+    String [] key_values = map.split("&");
+
+    for(String key_value: key_values) {
+      if(key_value.split("=").length != 2) {
+        throw new Exception("Receive_Value_Length_Exception");
+      }
+      String key = key_value.split("=")[0];
+      String value = key_value.split("=")[1];
+      value = URLDecoder.decode(value, "utf-8");
+
+      map.put(key, value);
+    }
+
+    return map;
   }
 }

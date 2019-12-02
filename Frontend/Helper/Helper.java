@@ -23,7 +23,7 @@ public class Helper {
     try {
       message.put("username", Configuation.get_username());
       message.put("token", Configuation.get_token());
-      message.put("room", Configuation.get_room_id());
+      message.put("roomid", Configuation.get_room_id());
       return Helper.http.post(Configuation.ApiPrifix + Configuation.sendMessage, message);
     } catch (Exception e) {
       throw e;
