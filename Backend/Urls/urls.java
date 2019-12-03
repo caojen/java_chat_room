@@ -27,7 +27,7 @@ public class Urls {
     urlReflect.put("/room/all", "GetAllRoom");
     urlReflect.put("/room/enter", "EnterRoom");
     urlReflect.put("/room/quit", "QuitRoom");
-    urlReflect.put("/room/remove", "RemoveRoom");
+    urlReflect.put("/room/remove", "RemoveParticipant");
     urlReflect.put("/room/delete", "DeleteRoom");
     urlReflect.put("/room/change", "RoomOwnerChange");
     urlReflect.put("/room/members", "GetAllMembers");

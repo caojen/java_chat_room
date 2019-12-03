@@ -624,4 +624,42 @@ public class Control {
       return null;
     }
   }
+
+  public static List<Participant> get_all_participant(String roomid) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "select * from room where roomid = '" + roomid + "';";
+
+      ResultSet rs = state.executeQuery(sql);
+
+      List<Participant> ret = new ArrayList<>();
+
+      if(rs.next()) {
+        String p = rs.getString("participants");
+        String[] ps = p.split(",");
+        for(String tp: ps) {
+          if(!tp.equals("")) {
+            Participant t = Participant.get(tp);
+            ret.add(t);
+          }
+        }
+        return ret;
+      } else {
+        return null;
+      }
+
+      state.close();
+      con.commit();
+      con.close();
+      return true;
+    } catch (Exception e) {
+      return null;
+    }
+  }
 }

@@ -180,7 +180,7 @@ public class Helper {
     body.put("target", URLEncoder.encode(username, "utf-8"));
     body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
 
-    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.removeParticipant, body);
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.removeParticipant, body);
 
     if(!result.get("status").equals("200")) {
       throw new Exception("Cannot remove because of " + result.get("message"));
@@ -197,7 +197,7 @@ public class Helper {
     body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
     body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
 
-    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.deleteRoom, body);
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
     if(!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));
@@ -217,7 +217,7 @@ public class Helper {
     body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
     body.put("target", URLEncoder.encode(username, "utf-8"));
 
-    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.changeOwner, body);
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.changeOwner, body);
 
     if(!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));

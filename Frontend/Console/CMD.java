@@ -56,7 +56,7 @@ public class CMD {
         // show all the participant
         Map<String, String> result = Helper.getMembers();
 
-        System.out.println("[show members] [username] [name]");
+        System.out.println("[show members] [at] [username]");
         for(String key: result.keySet()) {
           System.out.println("["+key+"]" +"["+result.get(key)+"]");
         }
