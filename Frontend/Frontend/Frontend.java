@@ -25,6 +25,7 @@ public class Frontend {
     }
     // room select:
     while(true) {
+      System.out.println("");
       if(room_select()) { // if room_select success, break;
         break;
       }
@@ -135,7 +136,7 @@ public class Frontend {
     // first: asking for room list, show it and its owner, type the room_id and enter the room:
     Map<String, String> roomList = Helper.getRoomList();
     
-    System.out.println("[room select] Please type room id to enter the room:");
+    System.out.println("[room list]");
     for(String roomid: roomList.keySet()) {
       System.out.println("[id] " + roomid + " [owner] " + roomList.get(roomid));
     }

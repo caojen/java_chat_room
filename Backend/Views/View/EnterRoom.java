@@ -59,7 +59,7 @@ public class EnterRoom extends Views {
             Room room = Room.LoadRoom(roomid);
             if(room == null) {
               returnCode = 402;
-              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
+              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room2", "utf-8");
             } else {
               room.appendParticipants(user);
               room.save();

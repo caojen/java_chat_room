@@ -58,10 +58,11 @@ public class NewMessageSend extends Views {
                         returnCode = 403;
                         returnMessage = "status=403&message=" + URLEncoder.encode("Anthentication Failed", "utf-8");
                     } else {
+                        System.out.println(roomid);
                         Room room = Room.LoadRoom(roomid);
                         if(room == null) {
                             returnCode = 402;
-                            returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room","utf-8");
+                            returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room1221","utf-8");
                         } else {
                             String last_key = receive.get("last_key");
                             Map<String, String> m = room.get_message(last_key);
@@ -72,6 +73,7 @@ public class NewMessageSend extends Views {
                 } 
             } catch (Exception e) {
                 returnCode = 400; 
+                e.printStackTrace();
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");     
             }
             this.Log(returnMessage);

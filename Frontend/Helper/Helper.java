@@ -40,7 +40,7 @@ public class Helper {
     Map<String, String> message = new HashMap<String, String>();
     message.put("username", Configuation.get_username());
     message.put("token", Configuation.get_token());
-    message.put("room", Configuation.get_room_id());
+    message.put("roomid", Configuation.get_room_id());
 
     if(last_key == null) {
       message.put("last_key", "null");
@@ -135,6 +135,9 @@ public class Helper {
    * @return return a order map
    */
   private static Map<String, String> toMap(String array_str) throws Exception {
+    if(array_str.length()<2) {
+      return null;
+    }
     String[] key_value = array_str.split("&");
     Map<String, String> ret = new LinkedHashMap<String, String>();
 

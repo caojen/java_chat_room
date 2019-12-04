@@ -44,6 +44,10 @@ public abstract class Views implements HttpHandler {
   }
 
   protected static String mapToString(Map<String, String> map) {
+    if(map == null) {
+      return "";
+    }
+    
     StringBuffer sb = new StringBuffer();
 
     for(String s: map.keySet()) {

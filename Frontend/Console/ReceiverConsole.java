@@ -77,11 +77,12 @@ class LoopForReceive {
           break;
         }
         Map<String, String> result = Helper.getMessage(last_key);
-        for(String key: result.keySet()) {
-          ReceiverConsole.showText.put(key, result.get(key));
-          AfterReceive(key, result.get(key));
+        if(result != null) {
+          for(String key: result.keySet()) {
+            ReceiverConsole.showText.put(key, result.get(key));
+            AfterReceive(key, result.get(key));
+          }
         }
-
         Thread.sleep(500);
       } catch (Exception e) {
         Frontend.running = false;
