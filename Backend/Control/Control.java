@@ -649,15 +649,18 @@ public class Control {
             ret.add(t);
           }
         }
+        state.close();
+        con.commit();
+        con.close();
         return ret;
       } else {
+        state.close();
+        con.commit();
+        con.close();
         return null;
       }
 
-      state.close();
-      con.commit();
-      con.close();
-      return true;
+      
     } catch (Exception e) {
       return null;
     }
