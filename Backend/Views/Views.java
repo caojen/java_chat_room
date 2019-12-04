@@ -22,7 +22,7 @@ public abstract class Views implements HttpHandler {
   private static String logPath = "Backend/Log/backend.log";
 
   protected void Log(Map<String, String> map) throws IOException {
-    if(map == null) {
+    if (map == null) {
       map = new HashMap<>();
     }
 
@@ -33,11 +33,21 @@ public abstract class Views implements HttpHandler {
     writeToFile(str);
   }
 
+  protected void Log(String str) {
+    try {
+      this.Log(Views.stringToMap(str));
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   protected static String mapToString(Map<String, String> map) {
     StringBuffer sb = new StringBuffer();
 
     for(String s: map.keySet()) {
-      sb.append("[" + s +"] " + map.get(s));
+      sb.append("[" + s +"] " + map.get(s) + "\n");
     }
 
     return sb.toString();
@@ -61,6 +71,8 @@ public abstract class Views implements HttpHandler {
   }
 
   protected static Map<String, String> stringToMap(String str) throws Exception {
+
+    System.out.println(str);
     Map<String, String> map = new HashMap<>();
 
     if(str.equals("")) {
@@ -70,11 +82,11 @@ public abstract class Views implements HttpHandler {
     String [] key_values = str.split("&");
 
     for(String key_value: key_values) {
-      if(key_value.split("=").length != 2) {
+      if(key_value.split("=").length != 2 && key_value.charAt(key_value.length() - 1) != '=') {
         throw new Exception("Receive_Value_Length_Exception");
       }
       String key = key_value.split("=")[0];
-      String value = key_value.split("=")[1];
+      String value = key_value.split("=").length < 2 ? "null" : key_value.split("=")[1];
       value = URLDecoder.decode(value, "utf-8");
 
       map.put(key, value);

@@ -33,12 +33,11 @@ public class GetAllRoom extends Views {
 
             String returnMessage = "status=200&data="+ URLEncoder.encode(str, "utf-8");
 
+            this.Log(returnMessage);
             exchange.sendResponseHeaders(200, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));
             os.close();
-
-            this.Log(rooms);
         }
     }
 }

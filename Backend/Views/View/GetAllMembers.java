@@ -53,6 +53,7 @@ public class GetAllMembers extends Views {
                 returnCode = 402;
                 returnMessage = "status=402&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
+            this.Log(returnMessage);
             exchange.sendResponseHeaders(returnCode, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("utf-8"));
