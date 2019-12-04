@@ -10,7 +10,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Control.Control;
-import Backend.Models.Room;
 import Backend.Models.Users.Participant;
 
 public class GetAllMembers extends Views {

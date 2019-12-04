@@ -16,7 +16,7 @@ import Backend.Models.Users.Participant;
 public class UserRegister extends Views {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if(exchange.getRequestMethod() != "POST") {
+        if(exchange.getRequestMethod().equals("POST")) {
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
             os.write((("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8"))).getBytes("utf-8"));

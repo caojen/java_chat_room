@@ -2,10 +2,6 @@ package Backend.Urls;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import Backend.Views.View.DeleteRoom;
