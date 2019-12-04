@@ -532,7 +532,7 @@ public class Control {
         List<User> lu = new ArrayList<User>();
 
         String participants = rs.getString("participants");
-        if(participants == null) {
+        if(participants == null || participants.equals("")) {
           r.setParticipants(new ArrayList<User>());
         } else {
           String[] ps = participants.split(",");
