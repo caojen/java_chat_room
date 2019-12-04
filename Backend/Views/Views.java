@@ -2,7 +2,7 @@ package Backend.Views;
 
 import com.sun.net.httpserver.HttpHandler;
 
-import Frontend.Log.Time;
+import Backend.Views.Time;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,7 +44,7 @@ public abstract class Views implements HttpHandler {
   }
 
   private static void writeToFile(String str) throws IOException {
-    str = "[" + Time.getTime() + "]\n" + str + "\n";
+    str = "[" + Time.getTime() + "]\n" + str + "\n\n";
 
     File logFile = new File(Views.logPath);
     FileOutputStream fos = null;

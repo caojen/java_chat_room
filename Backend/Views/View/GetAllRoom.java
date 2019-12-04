@@ -13,13 +13,15 @@ import Backend.Models.Room;
 public class GetAllRoom extends Views {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if(exchange.getRequestMethod() != "GET") {
+        if(!exchange.getRequestMethod().equals("GET")) {
+            System.out.println(exchange.getRequestMethod());
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
         } else {
             Map<String, String> rooms = Room.all();
+            
             String str = "";
 
             for(String key: rooms.keySet()) {
@@ -35,6 +37,8 @@ public class GetAllRoom extends Views {
             OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));
             os.close();
+
+            this.Log(rooms);
         }
     }
 }

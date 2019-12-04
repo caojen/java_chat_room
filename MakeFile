@@ -3,23 +3,14 @@ src = $(wildcard *.md)
 all:
 	javac Frontend/Main.java && javac Backend/Main.java
 
-initfrontend: 
-	javac Frontend/Main.java
-
-initbackend:
-	javac Backend/Main.java
-
 clean:
 	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \;
-
-build:
-	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && javac Backend/Main.java
 
 runfrontend:
 	java Frontend.Main
 
 runbackend:
-	java Backend.Main
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac -cp sqlite.jar: Backend/Main.java && java -cp sqlite.jar: Backend.Main
 
 debugf:
 	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && java Frontend.Main

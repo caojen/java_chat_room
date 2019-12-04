@@ -8,40 +8,40 @@ import java.util.Map;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import Backend.Views.View.*;
+import Backend.Views.View.DeleteRoom;
+import Backend.Views.View.EnterRoom;
+import Backend.Views.View.GetAllMembers;
+import Backend.Views.View.GetAllRoom;
+import Backend.Views.View.NewMessageReceive;
+import Backend.Views.View.NewMessageSend;
+import Backend.Views.View.QuitRoom;
+import Backend.Views.View.RemoveParticipant;
+import Backend.Views.View.RoomOwnerChange;
+import Backend.Views.View.UserLogin;
+import Backend.Views.View.UserRegister;
+
 
 public class Urls {
   private static HttpServer httpServer = null;
 
-  private static Map<String, String> urlReflect = null;
-
-  private static void addUrlReflect() {
-    if (urlReflect == null) {
-      urlReflect = new HashMap<>();
-    }
-
-    urlReflect.put("/send", "NewMessageReceive");
-    urlReflect.put("/get", "NewMessageSend");
-    urlReflect.put("/login", "UserLogin");
-    urlReflect.put("/register", "UserRegister");
-    urlReflect.put("/room/all", "GetAllRoom");
-    urlReflect.put("/room/enter", "EnterRoom");
-    urlReflect.put("/room/quit", "QuitRoom");
-    urlReflect.put("/room/remove", "RemoveParticipant");
-    urlReflect.put("/room/delete", "DeleteRoom");
-    urlReflect.put("/room/change", "RoomOwnerChange");
-    urlReflect.put("/room/members", "GetAllMembers");
-  }
-
   public static void start() throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-    Urls.addUrlReflect();
 
     Urls.httpServer = HttpServer.create(new InetSocketAddress(8888), 0);
 
-    for (String s : Urls.urlReflect.keySet()) {
-      Urls.httpServer.createContext(s, (HttpHandler) Class.forName(Urls.urlReflect.get(s)).newInstance());
-    }
+    Urls.httpServer.createContext("/send", new NewMessageReceive());
+    Urls.httpServer.createContext("/get", new NewMessageSend());
+    Urls.httpServer.createContext("/login", new UserLogin());
+    Urls.httpServer.createContext("/register", new UserRegister());
+    Urls.httpServer.createContext("/room/all", new GetAllRoom());
+    Urls.httpServer.createContext("/room/enter", new EnterRoom());
+    Urls.httpServer.createContext("/room/quit", new QuitRoom());
+    Urls.httpServer.createContext("/room/remove", new RemoveParticipant());
+    Urls.httpServer.createContext("/room/delete", new DeleteRoom());
+    Urls.httpServer.createContext("/room/change", new RoomOwnerChange());
+    Urls.httpServer.createContext("/room/members", new GetAllMembers());
 
     Urls.httpServer.start();
+
+    System.out.println("Urls is listening at 8888");
   }
 }

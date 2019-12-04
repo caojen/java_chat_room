@@ -617,10 +617,10 @@ public class Control {
       }
       
       state.close();
-      con.commit();
       con.close();
       return res;
     } catch (Exception e) {
+      e.printStackTrace();
       return null;
     }
   }
