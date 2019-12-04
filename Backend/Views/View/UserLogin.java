@@ -34,6 +34,8 @@ public class UserLogin extends Views {
                 sb.append(s);
             }
 
+            System.out.println(sb);
+
             int returnCode = 0;
             String returnMessage = "";
 
@@ -41,20 +43,27 @@ public class UserLogin extends Views {
                 Map<String, String> receive = Views.stringToMap(sb.toString());
                 String username = receive.get("username");
                 String password = receive.get("password");
+
                 User user = User.get_user(username);
-                user.setPassword(password);
-                String token = user.anthenticate();
-                if(token == null) {
+                if(user == null) {
                     returnCode = 403;
-                    returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed", "utf-8");
+                    returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed1", "utf-8");
                 } else {
+                    user.setPassword(password);
+                    String token = user.anthenticate();
+                    if(token == null) {
+                        returnCode = 403;
+                        returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed2", "utf-8");
+                    } else {
 
-                    String usertype = user.getUserType();
+                        String usertype = user.getUserType();
 
-                    returnCode = 200;
-                    returnMessage = "status=200&token=" + URLEncoder.encode(token, "utf-8") + "&username=" + URLEncoder.encode(username, "utf-8") + "&usertype=" + URLEncoder.encode(usertype, "utf-8");
+                        returnCode = 200;
+                        returnMessage = "status=200&token=" + URLEncoder.encode(token, "utf-8") + "&username=" + URLEncoder.encode(username, "utf-8") + "&usertype=" + URLEncoder.encode(usertype, "utf-8");
+                    }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 returnCode = 400;
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }

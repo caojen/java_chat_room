@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +36,10 @@ public class Control {
       state.executeUpdate(sql);
           
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
+      e.printStackTrace();
       return false;
     }
   }
@@ -58,7 +59,6 @@ public class Control {
       state.executeUpdate(sql);
       
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
@@ -80,7 +80,6 @@ public class Control {
       state.executeUpdate(sql);
       
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
@@ -108,7 +107,6 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
@@ -148,7 +146,6 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
@@ -171,7 +168,6 @@ public class Control {
       state.executeUpdate(sql);
       
       state.close();
-      con.commit();
       con.close();
       return true;
     } catch (Exception e) {
@@ -210,7 +206,6 @@ public class Control {
       }
 
       state.close();
-      con.commit();
       con.close();
 
       return result;
@@ -240,18 +235,18 @@ public class Control {
 
       if(rs.next()) {
         String token = token_create();
-
+        System.out.println("token="+token);
         sql = "update user set token = '" + token + "' where username = '" + username + "';"; 
 
         state.executeUpdate(sql);
 
         state.close();
-        con.commit();
+        
         con.close();
         return token;
       } else {
         state.close();
-        con.commit();
+        
         con.close();
         return null;
       }
@@ -274,14 +269,15 @@ public class Control {
 
       ResultSet rs = state.executeQuery(sql);
 
-      state.close();
-      con.commit();
-      con.close();
+      
 
       if(!rs.next()) {
+        state.close();
+        con.close();
         return false;
       }
-
+      state.close();
+      con.close();
       return true;
     } catch (Exception e) {
       return false;
@@ -301,14 +297,17 @@ public class Control {
 
       ResultSet rs = state.executeQuery(sql);
 
-      state.close();
-      con.commit();
-      con.close();
+      
 
       if(!rs.next()) {
+        state.close();
+      
+        con.close();
         return false;
       }
-
+      state.close();
+      
+      con.close();
       return true;
     } catch (Exception e) {
       return false;
@@ -328,16 +327,16 @@ public class Control {
 
       ResultSet rs = state.executeQuery(sql);
 
-      state.close();
-      con.commit();
-      con.close();
-
-      if(!rs.next()) {
-        return false;
+      if(rs.next()) {
+        state.close();
+        con.close();
+        return true;
       }
-
-      return true;
+      state.close();
+      con.close();
+      return false;
     } catch (Exception e) {
+      e.printStackTrace();
       return false;
     }
   }
@@ -360,14 +359,14 @@ public class Control {
 
       ResultSet rs = state.executeQuery(sql);
 
-      state.close();
-      con.commit();
-      con.close();
+      
 
       if(rs.next()) {
         return "Admin";
       }
-
+      state.close();
+      
+      con.close();
       return "Participant";
 
     } catch (Exception e) {
@@ -405,7 +404,7 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
+      
       con.close();
       return true;
     } catch (Exception e) {
@@ -427,7 +426,7 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
+      
       con.close();
       return true;
     } catch (Exception e) {
@@ -454,7 +453,7 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
+      
       con.close();
       return true;
     } catch (Exception e) {
@@ -489,12 +488,12 @@ public class Control {
         p.setUsername(username);
         p.setPassword("");
         state.close();
-        con.commit();
+        
         con.close();
         return p;
       } else {
         state.close();
-        con.commit();
+        
         con.close();
         return null;
       }
@@ -525,7 +524,7 @@ public class Control {
         Room r = new Room();
         
         User owner = new User();
-        owner.setUsername(rs.getString("username"));
+        owner.setUsername(rs.getString("owner"));
         owner.setPassword("");
         r.setOwner(owner);
 
@@ -534,29 +533,34 @@ public class Control {
         List<User> lu = new ArrayList<User>();
 
         String participants = rs.getString("participants");
-        String[] ps = participants.split(",");
-        for(String s: ps) {
-          if(!s.equals("")) {
-            User u = new User();
-            u.setUsername(s);
-            u.setPassword("");
-            lu.add(u);
+        if(participants == null) {
+          r.setParticipants(new ArrayList<User>());
+        } else {
+          String[] ps = participants.split(",");
+          for(String s: ps) {
+            if(!s.equals("")) {
+              User u = new User();
+              u.setUsername(s);
+              u.setPassword("");
+              lu.add(u);
+            }
           }
+          r.setParticipants(lu);
         }
-        r.setParticipants(lu);
-
+        
         state.close();
-        con.commit();
+        
         con.close();
 
         return r;
       } else {
         state.close();
-        con.commit();
+        
         con.close();
         return null;
       }
     } catch (Exception e) {
+      e.printStackTrace();
       return null;
     }
   }
@@ -585,7 +589,7 @@ public class Control {
       state.executeUpdate(sql);
 
       state.close();
-      con.commit();
+      
       con.close();
     } catch (Exception e) {
       e.printStackTrace();
@@ -650,12 +654,12 @@ public class Control {
           }
         }
         state.close();
-        con.commit();
+        
         con.close();
         return ret;
       } else {
         state.close();
-        con.commit();
+        
         con.close();
         return null;
       }

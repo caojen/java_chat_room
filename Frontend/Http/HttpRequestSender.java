@@ -52,7 +52,7 @@ public class HttpRequestSender implements HttpRequest {
       connection.disconnect();
 
       Log.write("[response] " + br.toString());
-
+      
       return formatHttpResult(result.toString());
     } catch (Exception e) {
       throw new Exception(e);
@@ -122,7 +122,7 @@ public class HttpRequestSender implements HttpRequest {
 
   @Override
   public Map<String, String> formatHttpResult(String data) throws Exception {
-    String[] datas = data.split("\n");
+    String[] datas = data.split("&");
     Map<String, String> result = new HashMap<String, String>();
 
     for(String value: datas) {

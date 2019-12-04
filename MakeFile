@@ -10,7 +10,16 @@ runfrontend:
 	java Frontend.Main
 
 runbackend:
-	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac -cp sqlite.jar: Backend/Main.java && java -cp sqlite.jar: Backend.Main
+	java -cp sqlite.jar: Backend.Main
 
-debugf:
-	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && java Frontend.Main
+build:
+	find  . -name  '*.class' -type  f -print -exec  rm -rf  {} \; && javac Frontend/Main.java && javac -cp sqlite.jar: Backend/Main.java
+
+log_backend:
+	cat Backend/Log/backend.log
+
+log_frontend:
+	cat Frontend/Log/frontend.log
+
+clean_log:
+	rm Backend/Log/backend.log Frontend/Log/frontend.log

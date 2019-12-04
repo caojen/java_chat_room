@@ -50,11 +50,11 @@ public class EnterRoom extends Views {
         User user = User.get_user(username);
         if(user == null) {
           returnCode = 403;
-          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
+          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed1", "utf-8");
         } else {
           if(user.anthenticate(token) == false) {
             returnCode = 403;
-            returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
+            returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed2", "utf-8");
           } else {
             Room room = Room.LoadRoom(roomid);
             if(room == null) {

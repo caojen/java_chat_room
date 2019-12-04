@@ -144,7 +144,7 @@ public class Frontend {
     String roomid = Main.scan.nextLine();
 
     Map<String, String> enterResult = Helper.enterRoom(roomid);
-    if(enterResult.get("status").equals("200")) {
+    if(!enterResult.get("status").equals("200")) {
       System.out.println("[room select failed] " + enterResult.get("message"));
       return false;
     } else {

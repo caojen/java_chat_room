@@ -139,11 +139,11 @@ public class Helper {
     Map<String, String> ret = new LinkedHashMap<String, String>();
 
     for(String ele : key_value) {
-      if(ele.split("=").length != 2) {
+      if(ele.split("=").length != 2 && ele.charAt(ele.length() - 1) != '=') {
         throw new Exception("Return_Value_Length_Exception");
       }
       String key = URLDecoder.decode(ele.split("=")[0], "utf-8");
-      String value = URLDecoder.decode(ele.split("=")[1], "utf-8");
+      String value = ele.split("=").length == 2 ? URLDecoder.decode(ele.split("=")[1], "utf-8") : "";
       ret.put(key, value);
     }
     return ret;
