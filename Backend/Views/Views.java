@@ -94,7 +94,6 @@ public abstract class Views implements HttpHandler {
 
   protected static Map<String, String> stringToMap(String str) throws Exception {
 
-    System.out.println(str);
     Map<String, String> map = new HashMap<>();
 
     if(str.equals("")) {

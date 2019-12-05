@@ -235,7 +235,6 @@ public class Control {
 
       if(rs.next()) {
         String token = token_create();
-        System.out.println("token="+token);
         sql = "update user set token = '" + token + "' where username = '" + username + "';"; 
 
         state.executeUpdate(sql);

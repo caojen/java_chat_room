@@ -58,7 +58,6 @@ public class NewMessageSend extends Views {
                         returnCode = 403;
                         returnMessage = "status=403&message=" + URLEncoder.encode("Anthentication Failed", "utf-8");
                     } else {
-                        System.out.println(roomid);
                         Room room = Room.LoadRoom(roomid);
                         if(room == null) {
                             returnCode = 402;

@@ -34,8 +34,6 @@ public class UserLogin extends Views {
                 sb.append(s);
             }
 
-            System.out.println(sb);
-
             int returnCode = 0;
             String returnMessage = "";
 

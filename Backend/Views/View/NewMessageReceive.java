@@ -64,7 +64,6 @@ public class NewMessageReceive extends Views {
               returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
             } else {
               String message = receive.get("message");
-              System.out.println(message);
               if(!message.equals("")) {
                 room.appendMessage(user, message);
                 room.save();
