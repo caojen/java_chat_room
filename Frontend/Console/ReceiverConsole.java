@@ -88,6 +88,7 @@ class LoopForReceive {
             ReceiverConsole.showText.put(key, result.get(key));
             AfterReceive(key, result.get(key));
           }
+          System.out.println("");
         }
         Thread.sleep(500);
       } catch (Exception e) {

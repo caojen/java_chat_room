@@ -74,6 +74,11 @@ class LoopForInputAndSendMessage {
           message = Main.scan.nextLine();
         }
 
+        if(this.valid(message) == false) {
+          System.out.println("[input error] Do not input = or &");
+          continue;
+        }
+
         if(message.charAt(0) == '#' && message.length() > 1 && message.charAt(1) != '#') {
           // The 'message' is a command, call to class.CMD
           try {
@@ -117,5 +122,17 @@ class LoopForInputAndSendMessage {
         e.printStackTrace();
       }
     }
+  }
+
+  /**
+     * To judge message valid. 
+     * @param message
+     * @return
+     */
+    private boolean valid(String message) {
+      if(message.contains("=") || message.contains("&")) {
+          return false;
+      }
+      return true;
   }
 }

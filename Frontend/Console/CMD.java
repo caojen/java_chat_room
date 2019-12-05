@@ -66,6 +66,7 @@ public class CMD {
         throw new Exception("");
       }
     } catch (Exception e) {
+      e.printStackTrace();
       throw new Exception("CMD usage error!");
     }
     return true;
