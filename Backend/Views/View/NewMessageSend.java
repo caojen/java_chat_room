@@ -66,7 +66,7 @@ public class NewMessageSend extends Views {
                         } else {
                             String last_key = receive.get("last_key");
                             Map<String, String> m = room.get_message(last_key);
-                            returnMessage = "status=200&data=" + URLEncoder.encode(Views.mapToString(m),"utf-8");
+                            returnMessage = "status=200&data=" + URLEncoder.encode(Views.mapToString(m, true),"utf-8");
                             returnCode =  200;
                         }
                     }

@@ -12,6 +12,7 @@ import java.util.Map;
 import Backend.Models.Room;
 import Backend.Models.User;
 import Backend.Models.Users.Participant;
+import Backend.Views.Time;
 
 public class Control {
   
@@ -196,11 +197,11 @@ public class Control {
       Map<String, String> result = null;
 
       while(rs.next()) {
-        if(rs.getString("time").compareTo(time) > 0) {
+        if(time == null || time.equals("null") || rs.getString("time").compareTo(time) > 0) {
           if(result == null) {
             result = new HashMap<String, String>();
           }
-          result.put(rs.getString("time"), rs.getString("message"));
+          result.put(rs.getString("time"), "[" + rs.getString("username")+ "]: " + rs.getString("message"));
         }
       }
 
@@ -666,6 +667,29 @@ public class Control {
       
     } catch (Exception e) {
       return null;
+    }
+  }
+
+  public static void appendMessage(String room_id, User user, String newmessage) {
+    String time = Time.getTime();
+
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "insert into message (roomid, time, username, message) " + 
+                  "values ('" + room_id +"', '" + time + "', '" + user.getUsername() + "', '" + newmessage + "');"; 
+
+      state.executeUpdate(sql);
+          
+      state.close();
+      con.close();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

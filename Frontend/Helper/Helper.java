@@ -49,7 +49,6 @@ public class Helper {
     }
 
     Map<String, String> result = Helper.http.post(Configuation.ApiPrifix + Configuation.getMessage, message);
-    
     return toMap(result.get("data"));
   }
 

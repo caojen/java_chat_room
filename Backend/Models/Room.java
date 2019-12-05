@@ -125,6 +125,8 @@ public class Room implements Models{
     }
 
     this.historyMessage.put(user.getUsername(), message);
+
+    Control.appendMessage(this.room_id, user, message);
   }
 
   /**

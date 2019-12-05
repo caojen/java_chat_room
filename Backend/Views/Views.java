@@ -57,6 +57,24 @@ public abstract class Views implements HttpHandler {
     return sb.toString();
   }
 
+  // this function will change \n to &
+  protected static String mapToString(Map<String, String> map, boolean flag) {
+    if(map == null) {
+      return "";
+    }
+    
+    StringBuffer sb = new StringBuffer();
+
+    for(String s: map.keySet()) {
+      if(sb.length() != 0) {
+        sb.append("&");
+      }
+      sb.append(s +"=" + map.get(s));
+    }
+
+    return sb.toString();
+  }
+
   private static void writeToFile(String str) throws IOException {
     str = "[" + Time.getTime() + "]\n" + str + "\n\n";
 

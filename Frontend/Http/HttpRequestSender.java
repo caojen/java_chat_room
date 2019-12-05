@@ -99,7 +99,7 @@ public class HttpRequestSender implements HttpRequest {
     String receiveData = null;
     StringBuilder result = new StringBuilder();
     while((receiveData = br.readLine()) != null) {
-      result.append(receiveData + '\n');
+      result.append(receiveData);
     }
     connection.disconnect();
 
@@ -127,10 +127,10 @@ public class HttpRequestSender implements HttpRequest {
 
     for(String value: datas) {
       String[] key_value = value.split("=");
-      if(key_value.length != 2) {
+      if(key_value.length != 2 && value.charAt(value.length() - 1) != '=') {
         throw new Exception("Return_Value_Format_Exception");
       }
-      result.put(key_value[0], URLDecoder.decode(key_value[1], "utf-8"));
+      result.put(key_value[0], key_value.length != 2 ? "" : URLDecoder.decode(key_value[1], "utf-8"));
     }
     return result;
   }

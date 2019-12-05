@@ -1,6 +1,7 @@
 package Frontend.Console;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import Frontend.Helper.Helper;
 import Frontend.Frontend.Frontend;
@@ -77,7 +78,12 @@ class LoopForReceive {
           break;
         }
         Map<String, String> result = Helper.getMessage(last_key);
+
+        // sort by the key
+        result = sort(result);
+
         if(result != null) {
+          System.out.println("\n[new message]");
           for(String key: result.keySet()) {
             ReceiverConsole.showText.put(key, result.get(key));
             AfterReceive(key, result.get(key));
@@ -98,5 +104,13 @@ class LoopForReceive {
    */
   private void AfterReceive(String key, String value) {
     System.out.println("[" + key + "] " + value);
+  }
+
+
+  private Map<String, String> sort(Map<String, String> map) {
+    if(map == null) {
+      return null;
+    }
+    return new TreeMap<String, String>(map);
   }
 }
