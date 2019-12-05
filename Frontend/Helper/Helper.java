@@ -241,5 +241,10 @@ public class Helper {
 
     return Helper.toMap(members);
   }
+
+  public static boolean createRoom(String roomid) {
+    // TODO: create a room
+    return false;
+  }
 }
 

@@ -75,7 +75,7 @@ class LoopForInputAndSendMessage {
         }
 
         if(this.valid(message) == false) {
-          System.out.println("[input error] Do not input = or &");
+          System.out.println("[input error] Do not input = or & or ' or \"");
           continue;
         }
 
@@ -130,7 +130,7 @@ class LoopForInputAndSendMessage {
      * @return
      */
     private boolean valid(String message) {
-      if(message.contains("=") || message.contains("&")) {
+      if(message.contains("=") || message.contains("&") || message.contains("'") || message.contains("\"")) {
           return false;
       }
       return true;

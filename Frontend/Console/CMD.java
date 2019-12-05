@@ -62,7 +62,17 @@ public class CMD {
         }
         System.out.println("[Done]");
 
-      } else {
+      } else if(args[0].equals("#createroom")) {
+        boolean result = Helper.createRoom(args[1]);
+
+        if(result == false) {
+          System.out.println("[Room_id Duplicated]");
+        } else {
+          System.out.println("[createRoom success]");
+        }
+      } 
+      
+      else {
         throw new Exception("");
       }
     } catch (Exception e) {

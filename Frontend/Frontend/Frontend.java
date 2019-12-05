@@ -4,6 +4,7 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 import Frontend.Configuation.Configuation;
+import Frontend.Console.CMD;
 import Frontend.Console.ReceiverConsole;
 import Frontend.Console.SenderConsole;
 import Frontend.Helper.Helper;
@@ -143,6 +144,19 @@ public class Frontend {
     System.out.println("[room select] Please type room id to enter the room:");
 
     String roomid = Main.scan.nextLine();
+
+    while(roomid.equals("")) {
+      roomid = Main.scan.nextLine();
+    }
+
+    if(roomid.charAt(0) == '#') {
+      try{
+        CMD.execute(roomid);
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+      return false;
+    }
 
     Map<String, String> enterResult = Helper.enterRoom(roomid);
     if(!enterResult.get("status").equals("200")) {
