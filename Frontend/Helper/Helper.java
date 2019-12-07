@@ -162,7 +162,7 @@ public class Helper {
     body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
     body.put("roomid", URLEncoder.encode(Configuation.get_room_id(), "utf-8"));
 
-    Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.quitRoom, body);
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.quitRoom, body);
 
     if(!result.get("status").equals("200")) {
       throw new Exception("Cannot quit because of " + result.get("message"));
@@ -237,8 +237,7 @@ public class Helper {
       throw new Exception(result.get("message"));
     }
 
-    String members = result.get("data");
-
+    String members = result.get("message");
     return Helper.toMap(members);
   }
 

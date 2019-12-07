@@ -92,7 +92,7 @@ public class Room implements Models{
     boolean isIn = false;
 
     for(User u : this.participants) {
-      if(u.getUsername() == participant.getUsername()) {
+      if(u.getUsername().equals(participant.getUsername())) {
         isIn = true;
         break;
       }
@@ -107,7 +107,17 @@ public class Room implements Models{
    */
   public void deleteParicipants(User participant) {
     if(this.isParticipantIn(participant)) {
-      this.participants.remove(participant);
+      // this.participants.remove(participant);
+      User target_u = null;
+      for(User u: this.participants) {
+        if(u.getUsername().equals(participant.getUsername())) {
+          target_u = u;
+          break;
+        }
+      }
+      if(target_u != null) {
+        this.participants.remove(target_u);
+      }
     }
   }
 
@@ -158,7 +168,6 @@ public class Room implements Models{
    * @return the Room required
    */
   public static Room LoadRoom(String id) {
-    // TODO: load a room with 'control' here
     return Control.get_room(id);
   }
 

@@ -56,11 +56,11 @@ public class CMD {
         // show all the participant
         Map<String, String> result = Helper.getMembers();
 
-        System.out.println("[show members] [at] [username]");
+        System.out.println("[show members]\n\n[at]\t[username]");
         for(String key: result.keySet()) {
-          System.out.println("["+key+"]" +"["+result.get(key)+"]");
+          System.out.println("["+key+"]\t" +"["+result.get(key)+"]");
         }
-        System.out.println("[Done]");
+        System.out.println("[Done]\n");
 
       } else if(args[0].equals("#createroom")) {
         boolean result = Helper.createRoom(args[1]);

@@ -43,7 +43,7 @@ public class Frontend {
    * @return true if login success
    */
   private static boolean switch_start_mode() {
-    System.out.println("[choose mode] 1->login; 2->register");
+    System.out.println("[choose mode] 1->login; 2->register; Ctrl+C->quit");
     
     String input = Main.scan.nextLine();
     

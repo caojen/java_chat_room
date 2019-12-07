@@ -63,10 +63,15 @@ public class QuitRoom extends Views {
                         returnCode = 402;
                         returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
                     } else {
-                        room.deleteParicipants(user);
-                        room.save();
-                        returnCode = 200;
-                        returnMessage = "status=200&message=" + URLEncoder.encode("Successfully Quit", "utf-8");
+                        if(room.getOwner().getUsername().equals(user.getUsername())) {
+                            returnCode = 401;
+                            returnMessage = "status=401&message=" + URLEncoder.encode("Owner_Cannot_Quit", "utf-8");
+                        } else {
+                            room.deleteParicipants(user);
+                            room.save();
+                            returnCode = 200;
+                            returnMessage = "status=200&message=" + URLEncoder.encode("Successfully Quit", "utf-8");
+                        }
                     }
                 }
                 
@@ -74,6 +79,7 @@ public class QuitRoom extends Views {
 
             } catch (Exception e) {
                 returnCode = 400;
+                e.printStackTrace();
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
             this.Log(returnMessage);

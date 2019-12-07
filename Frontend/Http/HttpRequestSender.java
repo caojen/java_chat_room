@@ -46,13 +46,13 @@ public class HttpRequestSender implements HttpRequest {
       String receiveData = null;
       StringBuilder result = new StringBuilder();
       while ((receiveData = br.readLine()) != null) {
-        result.append(receiveData + "\n");
+        result.append(receiveData);
       }
 
       connection.disconnect();
 
       Log.write("[response] " + br.toString());
-      
+      System.out.println(result.toString());
       return formatHttpResult(result.toString());
     } catch (Exception e) {
       throw new Exception(e);
