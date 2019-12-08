@@ -51,6 +51,9 @@ public class Helper {
     }
 
     Map<String, String> result = Helper.http.post(Configuation.ApiPrifix + Configuation.getMessage, message);
+    if(result.get("status").equals("200") == false) {
+      System.out.println("[error] " + result.get("message"));
+    }
     return toMap(result.get("data"));
   }
 
@@ -60,11 +63,11 @@ public class Helper {
       body.put("username", URLEncoder.encode(username, "utf-8"));
       body.put("password", URLEncoder.encode(password, "utf-8"));
       Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.login, body);
-
-      Configuation.set_token(URLDecoder.decode(result.get("token"), "utf-8"));
-      Configuation.set_username(URLDecoder.decode(result.get("username"), "utf-8"));
-      Configuation.set_usertype(UserType.toEnum(URLDecoder.decode(result.get("usertype"), "utf-8")));
-
+      if(result.get("status").equals("200")) {
+        Configuation.set_token(URLDecoder.decode(result.get("token"), "utf-8"));
+        Configuation.set_username(URLDecoder.decode(result.get("username"), "utf-8"));
+        Configuation.set_usertype(UserType.toEnum(URLDecoder.decode(result.get("usertype"), "utf-8")));
+      }
       return result;
     } catch (Exception e) {
       e.printStackTrace();
@@ -163,7 +166,7 @@ public class Helper {
    * 
    * @throws Exception if the user is the owner
    */
-  public static void quitRoom() throws Exception {
+  public static boolean quitRoom() throws Exception {
     Map<String, String> body = new HashMap<String, String>();
 
     body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
@@ -173,7 +176,13 @@ public class Helper {
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.quitRoom, body);
 
     if (!result.get("status").equals("200")) {
-      throw new Exception("Cannot quit because of " + result.get("message"));
+      System.out.println("[quit room warning]");
+      System.out.println("\tCannot quit because of " + result.get("message"));
+      System.out.println("\tIf you want to quit this room anyway, press ctrl+c and this program will be killed.");
+      System.out.println("\tNote that you still in this room if the room still exist.");
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -203,7 +212,7 @@ public class Helper {
    * 
    * @throws Exception if permission defined
    */
-  public static void deleteRoom() throws Exception {
+  public static boolean deleteRoom() throws Exception {
     Map<String, String> body = new HashMap<String, String>();
 
     body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
@@ -213,8 +222,10 @@ public class Helper {
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
     if (!result.get("status").equals("200")) {
-      throw new Exception("Cannot delete because of " + result.get("message"));
+      System.out.println("[quit room error] Cannot delete because of " + result.get("message"));
+      return false;
     }
+    return true;
   }
 
   /**

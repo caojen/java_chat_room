@@ -38,8 +38,7 @@ public class CMD {
     try {
       if(args[0].equals("#quit")) {
         // quit this room
-        Helper.quitRoom();
-        return false;
+        return Helper.quitRoom();
 
       } else if(args[0].equals("#remove")) {
 
@@ -50,10 +49,12 @@ public class CMD {
       } else if(args[0].equals("#deleteroom")) {
 
         // To delete this room(should be admin or owner)
-        Frontend.running = false;
-        Helper.deleteRoom();
-        System.out.println("[delete room accept] [redirect to quit]");
-        return false;
+        boolean deleteRoomResult = !Helper.deleteRoom();
+        Frontend.running = deleteRoomResult;
+        if(deleteRoomResult == false) {
+          System.out.println("[delete room accept] [redirect to quit]");
+        }
+        return deleteRoomResult;
 
       } else if(args[0].equals("#ownerchange")) {
         
@@ -86,7 +87,6 @@ public class CMD {
         throw new Exception("");
       }
     } catch (Exception e) {
-      e.printStackTrace();
       throw new Exception("CMD usage error!\n");
     }
     return true;

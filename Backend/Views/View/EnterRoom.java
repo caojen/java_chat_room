@@ -20,7 +20,8 @@ public class EnterRoom extends Views {
   public void handle(HttpExchange exchange) throws IOException {
     
     if(!exchange.getRequestMethod().equals("POST")) {
-      exchange.sendResponseHeaders(403, 0);
+      // exchange.sendResponseHeaders(403, 0);
+      exchange.sendResponseHeaders(200, 0);
       OutputStream os = exchange.getResponseBody();
       os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
       os.close();
@@ -50,16 +51,16 @@ public class EnterRoom extends Views {
         User user = User.get_user(username);
         if(user == null) {
           returnCode = 403;
-          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed1", "utf-8");
+          returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
         } else {
           if(user.anthenticate(token) == false) {
             returnCode = 403;
-            returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed2", "utf-8");
+            returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
           } else {
             Room room = Room.LoadRoom(roomid);
             if(room == null) {
               returnCode = 402;
-              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room2", "utf-8");
+              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
             } else {
               room.appendParticipants(user);
               room.save();
@@ -73,6 +74,7 @@ public class EnterRoom extends Views {
         returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
       }
       this.Log(returnMessage);
+      returnCode = 200;
       exchange.sendResponseHeaders(returnCode, 0);
       OutputStream os = exchange.getResponseBody();
       os.write(returnMessage.getBytes("utf-8"));

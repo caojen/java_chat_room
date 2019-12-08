@@ -19,7 +19,8 @@ public class NewMessageReceive extends Views {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
     if(!exchange.getRequestMethod().equals("POST")) {
-      exchange.sendResponseHeaders(403, 0);
+      // exchange.sendResponseHeaders(403, 0);
+      exchange.sendResponseHeaders(200, 0);
       OutputStream os = exchange.getResponseBody();
       os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
       os.close();
@@ -59,9 +60,9 @@ public class NewMessageReceive extends Views {
             returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
           } else {
             Room room = Room.LoadRoom(roomid);
-            if(room == null) {
+            if(room == null || room.isParticipantIn(user) == false) {
               returnCode = 402;
-              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
+              returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room or User Not In The Room", "utf-8");
             } else {
               String message = receive.get("message");
               if(!message.equals("")) {
@@ -80,6 +81,7 @@ public class NewMessageReceive extends Views {
         returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
       }
       this.Log(returnMessage);
+      returnCode = 200;
       exchange.sendResponseHeaders(returnCode, 0);
       OutputStream os = exchange.getResponseBody();
       os.write(returnMessage.getBytes("UTF-8"));

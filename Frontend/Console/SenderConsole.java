@@ -111,7 +111,7 @@ class LoopForInputAndSendMessage {
         Map<String, String> result = Helper.sendMessage(m);
 
         if(!result.get("status").equals("200")) {
-          throw new Exception("[Failed] Send Message Error With Status = " + result.get("status") + "\n" + "beacuse of " + result.get("message"));
+          throw new Exception("[Failed] Send Message Error With Status = " + result.get("status") + "\n\t" + "Beacuse of " + result.get("message"));
         }
         
         System.out.println("[Succeed] Message Send Success!");
@@ -119,7 +119,8 @@ class LoopForInputAndSendMessage {
         // wait for 200ms to avoid memory overflow
         Thread.sleep(200);
       } catch (Exception e) {
-        e.printStackTrace();
+        // e.printStackTrace();
+        System.out.println(e.getMessage());
       }
     }
   }

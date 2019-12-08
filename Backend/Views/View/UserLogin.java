@@ -17,7 +17,8 @@ public class UserLogin extends Views {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if(!exchange.getRequestMethod().equals("POST")) {
-            exchange.sendResponseHeaders(403, 0);
+            // exchange.sendResponseHeaders(403, 0);
+            exchange.sendResponseHeaders(200, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
@@ -45,13 +46,13 @@ public class UserLogin extends Views {
                 User user = User.get_user(username);
                 if(user == null) {
                     returnCode = 403;
-                    returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed1", "utf-8");
+                    returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed", "utf-8");
                 } else {
                     user.setPassword(password);
                     String token = user.anthenticate();
                     if(token == null) {
                         returnCode = 403;
-                        returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed2", "utf-8");
+                        returnMessage = "status=403&message=" + URLEncoder.encode("Anthenticate Failed", "utf-8");
                     } else {
 
                         String usertype = user.getUserType();
@@ -66,6 +67,7 @@ public class UserLogin extends Views {
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
             this.Log(returnMessage);
+            returnCode = 200;
             exchange.sendResponseHeaders(returnCode, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));

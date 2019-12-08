@@ -14,7 +14,8 @@ public class GetAllRoom extends Views {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if(!exchange.getRequestMethod().equals("GET")) {
-            exchange.sendResponseHeaders(403, 0);
+            // exchange.sendResponseHeaders(403, 0);
+            exchange.sendResponseHeaders(200, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
             os.close();
