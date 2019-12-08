@@ -1,6 +1,7 @@
 package Frontend.Helper;
 
 import java.util.Map;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class Helper {
 
   /**
    * send sender console message to server
+   * 
    * @param message the message
    * @return http-response-map
    */
@@ -30,10 +32,11 @@ public class Helper {
     }
   }
 
-
   /**
    * get the message from server based on the newest key.
-   * @param last_key the last key of show_text. if is null, server will return the last three message.
+   * 
+   * @param last_key the last key of show_text. if is null, server will return the
+   *                 last three message.
    * @return a message map in order. (can be added directly to show_text)
    */
   public static Map<String, String> getMessage(String last_key) throws Exception {
@@ -42,7 +45,7 @@ public class Helper {
     message.put("token", Configuation.get_token());
     message.put("roomid", Configuation.get_room_id());
 
-    if(last_key == null) {
+    if (last_key == null) {
       message.put("last_key", "null");
     } else {
       message.put("last_key", last_key);
@@ -58,7 +61,7 @@ public class Helper {
       body.put("username", URLEncoder.encode(username, "utf-8"));
       body.put("password", URLEncoder.encode(password, "utf-8"));
       Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.login, body);
-      
+
       Configuation.set_token(URLDecoder.decode(result.get("token"), "utf-8"));
       Configuation.set_username(URLDecoder.decode(result.get("username"), "utf-8"));
       Configuation.set_usertype(UserType.toEnum(URLDecoder.decode(result.get("usertype"), "utf-8")));
@@ -72,6 +75,7 @@ public class Helper {
 
   /**
    * Register a new user.
+   * 
    * @param username
    * @param password
    * @param email
@@ -85,7 +89,7 @@ public class Helper {
       body.put("password", URLEncoder.encode(password, "utf-8"));
       body.put("email", URLEncoder.encode(email, "utf-8"));
       body.put("phone", URLEncoder.encode(phone, "utf-8"));
-    
+
       return http.post(Configuation.ApiPrifix + Configuation.register, body);
     } catch (Exception e) {
       e.printStackTrace();
@@ -95,12 +99,13 @@ public class Helper {
 
   /**
    * get all the room_id
+   * 
    * @return a map contain all room(roomid - owner)
    */
   public static Map<String, String> getRoomList() {
     try {
       Map<String, String> roomList = http.get(Configuation.ApiPrifix + Configuation.allRoom, null);
-      if(!roomList.get("status").equals("200")) {
+      if (!roomList.get("status").equals("200")) {
         throw new Exception("ACCESS_ROOM_LIST_ERROR");
       }
       return toMap(roomList.get("data"));
@@ -112,6 +117,7 @@ public class Helper {
 
   /**
    * Try to enter the room
+   * 
    * @param roomid a string stand for the room id
    * @return http-response-map
    */
@@ -130,18 +136,20 @@ public class Helper {
 
   /**
    * format a key-value-string to a map
-   * @param array a String with messages, e.g. key1=en(opopojo)&key2="asdf". the value should be encoded.
+   * 
+   * @param array a String with messages, e.g. key1=en(opopojo)&key2="asdf". the
+   *              value should be encoded.
    * @return return a order map
    */
   private static Map<String, String> toMap(String array_str) throws Exception {
-    if(array_str.length()<2) {
+    if (array_str.length() < 2) {
       return null;
     }
     String[] key_value = array_str.split("&");
     Map<String, String> ret = new LinkedHashMap<String, String>();
 
-    for(String ele : key_value) {
-      if(ele.split("=").length != 2 && ele.charAt(ele.length() - 1) != '=') {
+    for (String ele : key_value) {
+      if (ele.split("=").length != 2 && ele.charAt(ele.length() - 1) != '=') {
         throw new Exception("Return_Value_Length_Exception");
       }
       String key = URLDecoder.decode(ele.split("=")[0], "utf-8");
@@ -153,6 +161,7 @@ public class Helper {
 
   /**
    * quit the room
+   * 
    * @throws Exception if the user is the owner
    */
   public static void quitRoom() throws Exception {
@@ -164,15 +173,16 @@ public class Helper {
 
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.quitRoom, body);
 
-    if(!result.get("status").equals("200")) {
+    if (!result.get("status").equals("200")) {
       throw new Exception("Cannot quit because of " + result.get("message"));
     }
   }
 
   /**
    * Remove a participant from the room
+   * 
    * @param username the target
-   * @throws Exception  if permission defined
+   * @throws Exception if permission defined
    */
   public static void removeParticipant(String username) throws Exception {
     Map<String, String> body = new HashMap<String, String>();
@@ -184,12 +194,14 @@ public class Helper {
 
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.removeParticipant, body);
 
-    if(!result.get("status").equals("200")) {
+    if (!result.get("status").equals("200")) {
       throw new Exception("Cannot remove because of " + result.get("message"));
     }
   }
+
   /**
    * Delete the Room
+   * 
    * @throws Exception if permission defined
    */
   public static void deleteRoom() throws Exception {
@@ -201,15 +213,16 @@ public class Helper {
 
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
-    if(!result.get("status").equals("200")) {
+    if (!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));
     }
   }
 
   /**
    * Change owner of room
+   * 
    * @param username the target's username
-   * @throws Exception  if permission defined
+   * @throws Exception if permission defined
    */
   public static void changeOwner(String username) throws Exception {
     Map<String, String> body = new HashMap<String, String>();
@@ -221,7 +234,7 @@ public class Helper {
 
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.changeOwner, body);
 
-    if(!result.get("status").equals("200")) {
+    if (!result.get("status").equals("200")) {
       throw new Exception("Cannot delete because of " + result.get("message"));
     }
   }
@@ -233,7 +246,7 @@ public class Helper {
 
     Map<String, String> result = http.get(Configuation.ApiPrifix + Configuation.getMembers, body);
 
-    if(!result.get("status").equals("200")) {
+    if (!result.get("status").equals("200")) {
       throw new Exception(result.get("message"));
     }
 
@@ -241,9 +254,20 @@ public class Helper {
     return Helper.toMap(members);
   }
 
-  public static boolean createRoom(String roomid) {
-    // TODO: create a room
-    return false;
+  public static boolean createRoom(String roomid) throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("roomid", URLEncoder.encode(roomid, "utf-8"));
+
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.createRoom, body);
+
+    if (!result.get("status").equals("200")) {
+      return false;
+    }
+
+    return true;
   }
 }
 

@@ -12,16 +12,18 @@ import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Models.User;
+import Backend.Control.Control;
 import Backend.Models.Room;
 
-public class NewMessageSend extends Views {
+public class CreateNewRoom extends Views {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        System.out.println("dd");
         if(!exchange.getRequestMethod().equals("POST")) {
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
-            os.write(("status=403&message="+URLEncoder.encode("Forbidden", "utf-8")).getBytes("utf-8"));
+            os.write(("status=403&message=" + URLEncoder.encode("Forbidden", "utf-8")).getBytes());
             os.close();
         } else {
             InputStream is = exchange.getRequestBody();
@@ -49,37 +51,41 @@ public class NewMessageSend extends Views {
                 User user = User.get_user(username);
 
                 if(user == null) {
+                returnCode = 403;
+                returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
+                } else {
+                boolean isAnthenticate = user.anthenticate(token);
+
+                if(!isAnthenticate) {
                     returnCode = 403;
                     returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
                 } else {
-                    boolean isAnthenticate = user.anthenticate(token);
-
-                    if(!isAnthenticate) {
-                        returnCode = 403;
-                        returnMessage = "status=403&message=" + URLEncoder.encode("Anthentication Failed", "utf-8");
+                    Room room = Room.LoadRoom(roomid);
+                    if(room != null) {
+                      returnCode = 402;
+                      returnMessage = "status=402&message=" + URLEncoder.encode("Room Already Exists", "utf-8");
                     } else {
-                        Room room = Room.LoadRoom(roomid);
-                        if(room == null || room.isParticipantIn(user) == false) {
-                            returnCode = 402;
-                            returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room or user not in this room","utf-8");
-                        } else {
-                            String last_key = receive.get("last_key");
-                            Map<String, String> m = room.get_message(last_key);
-                            returnMessage = "status=200&data=" + URLEncoder.encode(Views.mapToString(m, true),"utf-8");
-                            returnCode =  200;
-                        }
+                      Control.create_room(roomid, user.getUsername());
+                      returnCode = 200;
+                      returnMessage = "status=200&message=" + URLEncoder.encode("Done", "utf-8");
                     }
-                } 
+                }
+                
+                }
+
             } catch (Exception e) {
-                returnCode = 400; 
-                e.printStackTrace();
-                returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");     
+                returnCode = 400;
+                returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
+            System.out.println(returnMessage);
             this.Log(returnMessage);
             exchange.sendResponseHeaders(returnCode, 0);
             OutputStream os = exchange.getResponseBody();
             os.write(returnMessage.getBytes("UTF-8"));
             os.close();
+
         }
+
     }
+    
 }

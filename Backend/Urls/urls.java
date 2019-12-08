@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
+import Backend.Views.View.CreateNewRoom;
 import Backend.Views.View.DeleteRoom;
 import Backend.Views.View.EnterRoom;
 import Backend.Views.View.GetAllMembers;
@@ -35,6 +36,7 @@ public class Urls {
     Urls.httpServer.createContext("/room/delete", new DeleteRoom());
     Urls.httpServer.createContext("/room/change", new RoomOwnerChange());
     Urls.httpServer.createContext("/room/members", new GetAllMembers());
+    Urls.httpServer.createContext("/room/create", new CreateNewRoom());
 
     Urls.httpServer.start();
 

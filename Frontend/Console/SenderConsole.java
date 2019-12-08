@@ -91,7 +91,7 @@ class LoopForInputAndSendMessage {
             }
           } catch (Exception e) {
             System.out.print("[Command Execute Failed] ");
-            e.printStackTrace();
+            System.out.println(e.getMessage());
           }
 
           Thread.sleep(200);

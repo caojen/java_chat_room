@@ -54,7 +54,7 @@ public class Control {
       Statement state = con.createStatement();
 
       String sql = "insert into room (roomid, owner, participants, valid)" +
-                  "values ('" + roomid +"', '" + owner + "', '', 1);";
+                  "values ('" + roomid +"', '" + owner + "', '" + owner + ",', 1);";
 
       state.executeUpdate(sql);
       
@@ -123,7 +123,7 @@ public class Control {
 
       Statement state = con.createStatement();
 
-      String sql = "select * from participant where roomid = '" + roomid + "';";
+      String sql = "select * from room where roomid = '" + roomid + "';";
 
       ResultSet rs = state.executeQuery(sql);
 
@@ -141,7 +141,7 @@ public class Control {
 
       p = pb.toString();
 
-      sql = "update participant set participants = '" + p + "' where roomid = '" + roomid + "';"; 
+      sql = "update room set participants = '" + p + "' where roomid = '" + roomid + "';"; 
 
       state.executeUpdate(sql);
 
@@ -149,6 +149,7 @@ public class Control {
       con.close();
       return true;
     } catch (Exception e) {
+      e.printStackTrace();
       return false;
     }
   }

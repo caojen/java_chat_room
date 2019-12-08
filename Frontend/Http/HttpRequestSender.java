@@ -52,7 +52,6 @@ public class HttpRequestSender implements HttpRequest {
       connection.disconnect();
 
       Log.write("[response] " + br.toString());
-      System.out.println(result.toString());
       return formatHttpResult(result.toString());
     } catch (Exception e) {
       throw new Exception(e);

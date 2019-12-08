@@ -19,18 +19,33 @@ public class Frontend {
     System.out.println("Welcome to Chat-Room Client!");
 
     // login or register
-    while(true) {
-      if(switch_start_mode()) { // if login success, then break and continue...
+    while (true) {
+      if (switch_start_mode()) { // if login success, then break and continue...
         break;
-      };
+      }
+      ;
     }
     // room select:
-    while(true) {
+    while (true) {
       System.out.println("");
-      if(room_select()) { // if room_select success, break;
+      if (room_select()) { // if room_select success, break;
         break;
       }
     }
+
+    // deal with ctrl+c here:
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      System.out.println("\n[Exited detected]\n[accept command] #quit");
+      Frontend.running = false;
+      try {
+        CMD.execute("#quit");
+      } catch (Exception e) {
+        System.out.println("\n[Quit Warning]\n\tYou may be the owner of this room, therefore you cannot quit the room.\n\t"+
+          "If this message showed after you delete this room, you have successfully deleted this room already.\n\t"+
+          "Otherwise, You have just already killed this program successfully.");
+      }
+    }));
+
 
     // after enter room, sender console and receive console should begin...
     Frontend.running = true;

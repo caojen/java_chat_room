@@ -26,6 +26,8 @@ public class Configuation {
   public static String changeOwner = "room/change/";
   // get all members:
   public static String getMembers = "room/members/";
+  // create new room:
+  public static String createRoom = "room/create/";
   // ... more configuations...
 
   // user's information:

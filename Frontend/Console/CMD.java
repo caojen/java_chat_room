@@ -2,6 +2,7 @@ package Frontend.Console;
 
 import java.util.Map;
 
+import Frontend.Frontend.Frontend;
 import Frontend.Helper.Helper;
 
 public class CMD {
@@ -43,7 +44,10 @@ public class CMD {
       } else if(args[0].equals("#deleteroom")) {
 
         // To delete this room(should be admin or owner)
+        Frontend.running = false;
         Helper.deleteRoom();
+        System.out.println("[delete room accept] [redirect to quit]");
+        return false;
 
       } else if(args[0].equals("#ownerchange")) {
         
@@ -77,7 +81,7 @@ public class CMD {
       }
     } catch (Exception e) {
       e.printStackTrace();
-      throw new Exception("CMD usage error!");
+      throw new Exception("CMD usage error!\n");
     }
     return true;
   }
