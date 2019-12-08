@@ -16,6 +16,10 @@ public class CMD {
     if(cmd.charAt(0) != '#') {
       throw new Exception("cmd is not begining with '#'");
     }
+    // command also not allow &, + , ', =, ...
+    if(CMD.valid(cmd) == false) {
+      throw new Exception("[input error] Do not input = or & or ' or \" or ? or +");
+    }
     return run(cmd.split(" "));
   }
 
@@ -29,6 +33,8 @@ public class CMD {
     if(args.length <= 0) {
       throw new Exception("Not a command");
     }
+
+    
     try {
       if(args[0].equals("#quit")) {
         // quit this room
@@ -85,4 +91,17 @@ public class CMD {
     }
     return true;
   }
+
+    /**
+     * To judge cmd valid. 
+     * @param message same as cmd
+     * @return
+     */
+    private static boolean valid(String message) {
+      if(message.contains("=") || message.contains("&") || message.contains("'") || message.contains("\"") || message.contains("?") || message.contains("+")) {
+          return false;
+      }
+      return true;
+  }
+
 }
