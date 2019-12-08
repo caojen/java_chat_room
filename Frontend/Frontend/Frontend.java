@@ -16,6 +16,7 @@ public class Frontend {
   public static boolean running = false;
 
   public static void start() {
+    Frontend.running = false;
     System.out.println("Welcome to Chat-Room Client!");
 
     // login or register
