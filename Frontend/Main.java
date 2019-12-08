@@ -21,7 +21,7 @@ public class Main {
       e.printStackTrace();
       System.out.println("[STOP DEALER] The Client Stop because of Error!");
       System.out.println("[STOP DEALER] Trying To Restart Client.");
-      Thread.sleep(1000);
+      Thread.sleep(3000);
       Main.main(args);
     }
   }
