@@ -19,7 +19,6 @@ public class CreateNewRoom extends Views {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("dd");
         if(!exchange.getRequestMethod().equals("POST")) {
             exchange.sendResponseHeaders(403, 0);
             OutputStream os = exchange.getResponseBody();
@@ -77,7 +76,6 @@ public class CreateNewRoom extends Views {
                 returnCode = 400;
                 returnMessage = "status=400&message=" + URLEncoder.encode("Message_not_success", "utf-8");
             }
-            System.out.println(returnMessage);
             this.Log(returnMessage);
             exchange.sendResponseHeaders(returnCode, 0);
             OutputStream os = exchange.getResponseBody();
