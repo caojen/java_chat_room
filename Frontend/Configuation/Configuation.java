@@ -10,6 +10,8 @@ public class Configuation {
   public static String getMessage = "get/";
   // login:
   public static String login = "login/";
+  // logout:
+  public static String logout = "logout/";
   // register:
   public static String register = "register/";
   // all room:
@@ -71,4 +73,15 @@ public class Configuation {
   }
 
   public static String LogPath = "Frontend/Log/frontend.log";
+
+  public static void logout() {
+    Configuation.username = null;
+    Configuation.room_id = null;
+    Configuation.usertype = null;
+    Configuation.token = null;
+  }
+
+  public static boolean isLogin() {
+    return Configuation.username != null && Configuation.token != null && Configuation.usertype != null;
+  }
 }

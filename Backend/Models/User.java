@@ -101,4 +101,8 @@ public class User implements Models {
   public String getUserType() {
     return Control.getUserType(this.username);
   }
+
+  public void logout(String roomid) {
+    Control.logout(this.username, roomid);
+  }
 }

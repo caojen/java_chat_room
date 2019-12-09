@@ -24,7 +24,6 @@ public class Frontend {
       if (switch_start_mode()) { // if login success, then break and continue...
         break;
       }
-      ;
     }
     // room select:
     while (true) {
@@ -83,14 +82,14 @@ public class Frontend {
    * @return true if login success
    */
   private static boolean login_require() {
-    System.out.print("[login required] Please type your username(q to back): ");
+    System.out.print("[login]\n\t[username required] Please type your username(q to back): ");
 
     String username = Main.scan.nextLine();
     if(username.equals("q")) {
       return false;
     }
 
-    System.out.print("[password required] Please type your password(q to back): ");
+    System.out.print("\t[password required] Please type your password(q to back): ");
     String password = Main.scan.nextLine();
     if(password.equals("q")) {
       return false;
@@ -108,25 +107,25 @@ public class Frontend {
 
   private static void register_user() {
     System.out.println("[register] Type q anytime to quit!");
-    System.out.print("[register username] Please type your new username: ");
+    System.out.print("\t[register username] Please type your new username: ");
     String username = Main.scan.nextLine();
     if(username.equals("q")) {
       return;
     }
 
-    System.out.print("[register password] Please type your password: ");
+    System.out.print("\t[register password] Please type your password: ");
     String password = Main.scan.nextLine();
     if(password.equals("q")) {
       return;
     }
 
-    System.out.print("[register email] Please type your Email address: ");
+    System.out.print("\t[register email] Please type your Email address: ");
     String email = Main.scan.nextLine();
     if(email.equals("q")) {
       return;
     }
 
-    System.out.print("[register phone] Please type your phone number: ");
+    System.out.print("\t[register phone] Please type your phone number: ");
     String phone = Main.scan.nextLine();
     if(phone.equals("q")) {
       return;

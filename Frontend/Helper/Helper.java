@@ -279,5 +279,19 @@ public class Helper {
 
     return true;
   }
+
+  public static Map<String, String> logout() throws Exception {
+    Map<String, String> res = new HashMap<>();
+    if(Configuation.isLogin() == false) {
+      res.put("status", "403");
+      res.put("message", "Not Login");
+    } else {
+      Map<String, String> body = new HashMap<>();
+      body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+      body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+      res = http.post(Configuation.ApiPrifix + Configuation.logout, body);
+    }
+    return res;
+  }
 }
 

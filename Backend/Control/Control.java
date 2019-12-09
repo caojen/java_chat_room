@@ -692,4 +692,31 @@ public class Control {
       e.printStackTrace();
     }
   }
+
+  public static void logout(String username, String roomid) {
+    try {
+      Class.forName("org.sqlite.JDBC");
+
+      String db = "Backend/Control/database.db";
+      Connection con = DriverManager.getConnection("jdbc:sqlite:" + db);
+
+      Statement state = con.createStatement();
+
+      String sql = "update user set token = '' where username = '" + username + "';"; 
+
+      state.executeUpdate(sql);
+      
+      // to quit room:
+      if(roomid != null) {
+        Room room = Room.LoadRoom(roomid);
+        room.deleteParicipants(User.get_user(username));
+        room.save();
+      }
+
+      state.close();
+      con.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import Frontend.Frontend.Frontend;
 import Frontend.Helper.Helper;
+import Frontend.Configuation.Configuation;
 
 public class CMD {
   /**
@@ -81,7 +82,25 @@ public class CMD {
         } else {
           System.out.println("[createRoom success]");
         }
-      } 
+      } else if(args[0].equals("#logout")) {
+        Map<String, String> result = Helper.logout();
+
+        if(result.get("status").equals("200")) {
+          System.out.println("[logout success] " + result.get("message"));
+          Frontend.running = false;
+          Configuation.logout();
+          // System.out.println("[logout success] Enter any words to finish logout process...\t");
+          System.out.println("[wait] Trying to restart frontend...");
+          try {
+            Thread.sleep(5000);
+          } catch(Exception e) {
+
+          }
+          Frontend.start();
+        } else {
+          System.out.println("[logout failed] " + result.get("message"));
+        }
+      }
       
       else {
         throw new Exception("");

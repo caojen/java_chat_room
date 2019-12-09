@@ -70,10 +70,17 @@ class LoopForInputAndSendMessage {
 
         String message = Main.scan.nextLine();
 
-        while(message.equals("")) {
-          message = Main.scan.nextLine();
+        if(Frontend.running == false) {
+          break;
         }
 
+        while(message.equals("")) {
+          message = Main.scan.nextLine();
+          if(Frontend.running == false) {
+            break;
+          }
+        }
+        
         if(this.valid(message) == false) {
           System.out.println("[input error] Do not input = or & or ' or \" or ? or +");
           continue;
