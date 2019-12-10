@@ -131,7 +131,7 @@ public class Helper {
       body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
       return http.post(Configuation.ApiPrifix + Configuation.enterRoom, body);
     } catch (Exception e) {
-      e.printStackTrace();
+      // System.out.println(e.getMessage());
       return null;
     }
   }

@@ -14,6 +14,7 @@ import Frontend.Main;
 public class Frontend {
   // if the console is running...
   public static boolean running = false;
+  private static boolean first = true;
 
   public static void start() {
     Frontend.running = false;
@@ -32,24 +33,26 @@ public class Frontend {
         break;
       }
     }
+    if(Frontend.first) {
+      Frontend.first = false;
 
-    // deal with ctrl+c here:
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      if(Configuation.isLogin()) {
-        System.out.println("\n[Exited detected]\n[accept command] #quit");
-        Frontend.running = false;
-        try {
-          CMD.execute("#quit");
-        } catch (Exception e) {
-          System.out.println("\n[Quit Warning]\n\tYou may be the owner of this room, therefore you cannot quit the room.\n\t"+
-            "If this message showed after you delete this room, you have successfully deleted this room already.\n\t"+
-            "Otherwise, You have just already killed this program successfully.");
+      // deal with ctrl+c here:
+      Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+        if(Configuation.isLogin()) {
+          System.out.println("\n[Exited detected]\n[accept command] #quit");
+          Frontend.running = false;
+          try {
+            CMD.execute("#quit");
+          } catch (Exception e) {
+            System.out.println("\n[Quit Warning]\n\tYou may be the owner of this room, therefore you cannot quit the room.\n\t"+
+              "If this message showed after you delete this room, you have successfully deleted this room already.\n\t"+
+              "Otherwise, You have just already killed this program successfully.");
+          }
+        } else {
+          System.out.println("\n[exit]\n");
         }
-      } else {
-        System.out.println("\n[exit]\n");
-      }
-    }));
-
+      }));
+    }
 
     // after enter room, sender console and receive console should begin...
     Frontend.running = true;
@@ -157,8 +160,12 @@ public class Frontend {
     Map<String, String> roomList = Helper.getRoomList();
     
     System.out.println("[room list]\n");
-    for(String roomid: roomList.keySet()) {
-      System.out.println("\t[id] " + roomid + " [owner] " + roomList.get(roomid));
+    if(roomList != null) {
+      for(String roomid: roomList.keySet()) {
+        System.out.println("\t[id] " + roomid + " [owner] " + roomList.get(roomid));
+      }
+    } else {
+      System.out.println("\t[Warning] No room exists. Please use #createroom command to create a new room first.");
     }
     System.out.println("\n[room select] Please type room id to enter the room:");
 

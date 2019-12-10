@@ -93,8 +93,10 @@ class LoopForReceive {
         }
         Thread.sleep(500);
       } catch (Exception e) {
+        // e.printStackTrace();
         System.out.println("[error] You may have been moved out of the room by the owner.");
         System.out.println("[error] Try to check your connection again.");
+        System.out.println("[error] If you delete the room, please ignore this message");
         Frontend.running = false;
       }
     }

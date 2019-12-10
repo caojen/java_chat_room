@@ -69,7 +69,6 @@ class LoopForInputAndSendMessage {
         System.out.print("[input] New Message:>>>");
 
         String message = Main.scan.nextLine();
-
         if(Frontend.running == false) {
           break;
         }
