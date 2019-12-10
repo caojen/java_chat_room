@@ -79,6 +79,10 @@ public class Control {
 
       state.executeUpdate(sql);
       
+      sql = "delete from message where roomid = '" + roomid + "';";
+
+      state.executeUpdate(sql);
+      
       state.close();
       con.close();
       return true;
