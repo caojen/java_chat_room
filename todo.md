@@ -7,5 +7,5 @@ add logout, just back to select mode    ... Done
 after owner deleteroom, back to select mode ... deleted
 if no room exists, don't throw error  ... Done
 test and debug for admin
-create a configuation file, and load user data from this file 
+create a configuation file, and load user data from this file   ... Done
 add a ip_switcher.class

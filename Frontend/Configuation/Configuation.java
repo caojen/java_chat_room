@@ -1,10 +1,16 @@
 package Frontend.Configuation;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
+
 import Frontend.Configuation.UserType.UserTypeEnum;
 
 public class Configuation {
   // test, just use static valuable.
-  public static String ApiPrifix = "http://172.18.42.159:8888/";
+  public static String ApiPrifix = null;
   // for console:
   public static String sendMessage = "send/";
   public static String getMessage = "get/";
@@ -83,5 +89,66 @@ public class Configuation {
 
   public static boolean isLogin() {
     return Configuation.username != null && Configuation.token != null && Configuation.usertype != null;
+  }
+
+  private static String configuation_file = "Frontend/Configuation/Configuation.cfg";
+
+  /**
+   * Load configuation from file
+   * @return true if success
+   */
+  public static void load_from_file() {
+    try {
+      File file = new File(Configuation.configuation_file);
+      BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+      String strLine = null;
+      StringBuffer sb = new StringBuffer();
+      while(null != (strLine = bufferedReader.readLine())){
+          sb.append(strLine + "\n");
+      }
+      bufferedReader.close();
+
+      Map<String, String> key_values = Configuation.stringBuffertoMap(sb);
+
+      if(null == key_values || !key_values.containsKey("ip") || !key_values.containsKey("port")) {
+        throw new Exception("error");
+      }
+
+      Configuation.ApiPrifix = "http://" + key_values.get("ip") + ":" + key_values.get("port") + "/";
+    }catch(Exception e){
+      e.printStackTrace();
+      System.out.println("[Load Error] Cannot load from configuation.cfg, reset it");
+      Configuation.ApiPrifix = "http://localhost:8888/";
+    }
+
+    System.out.println(Configuation.ApiPrifix);
+  }
+
+  /**
+   * To format a stringbuffer to map(=, \n);
+   * @param sb the buffer
+   * @return key-value map(null if empty)
+   */
+  private static Map<String, String> stringBuffertoMap(StringBuffer sb) throws Exception {
+    String str = sb.toString();
+    if(str.equals("")) {
+      return null;
+    }
+    Map<String, String> res = null;
+
+    String[] key_values = str.split("\n");
+    for(String key_value: key_values) {
+      if(key_value.equals("")) {
+        continue;
+      }
+      String key = key_value.split("=")[0];
+      String value = key_value.split("=")[1];
+
+      if(null == res) {
+        res = new HashMap<String, String>();
+      }
+      res.put(key, value);
+    }
+    return res;
   }
 }
