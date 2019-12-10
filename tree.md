@@ -20,6 +20,7 @@
 │   └── Views
 │       ├── Time.java
 │       ├── View
+│       │   ├── CreateNewRoom.java
 │       │   ├── DeleteRoom.java
 │       │   ├── EnterRoom.java
 │       │   ├── GetAllMembers.java
@@ -30,6 +31,7 @@
 │       │   ├── RemoveParticipant.java
 │       │   ├── RoomOwnerChange.java
 │       │   ├── UserLogin.java
+│       │   ├── UserLogout.java
 │       │   └── UserRegister.java
 │       └── Views.java
 ├── Frontend
@@ -55,6 +57,7 @@
 ├── README.md
 ├── makefile
 ├── sqlite.jar
+├── todo.md
 └── tree.md
 
-16 directories, 41 files
+16 directories, 44 files
