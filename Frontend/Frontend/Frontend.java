@@ -93,12 +93,14 @@ public class Frontend {
 
     String username = Main.scan.nextLine();
     if(username.equals("q")) {
+      System.out.println("[Canceled]");
       return false;
     }
 
     System.out.print("\t[password required] Please type your password(q to back): ");
     String password = Main.scan.nextLine();
     if(password.equals("q")) {
+      System.out.println("[Canceled]");
       return false;
     }
 
@@ -117,24 +119,28 @@ public class Frontend {
     System.out.print("\t[register username] Please type your new username: ");
     String username = Main.scan.nextLine();
     if(username.equals("q")) {
+      System.out.println("[Canceled]");
       return;
     }
 
     System.out.print("\t[register password] Please type your password: ");
     String password = Main.scan.nextLine();
     if(password.equals("q")) {
+      System.out.println("[Canceled]");
       return;
     }
 
     System.out.print("\t[register email] Please type your Email address: ");
     String email = Main.scan.nextLine();
     if(email.equals("q")) {
+      System.out.println("[Canceled]");
       return;
     }
 
     System.out.print("\t[register phone] Please type your phone number: ");
     String phone = Main.scan.nextLine();
     if(phone.equals("q")) {
+      System.out.println("[Canceled]");
       return;
     }
 
