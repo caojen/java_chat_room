@@ -120,8 +120,6 @@ public class Configuation {
       System.out.println("[Load Error] Cannot load from configuation.cfg, reset it");
       Configuation.ApiPrifix = "http://localhost:8888/";
     }
-
-    System.out.println(Configuation.ApiPrifix);
   }
 
   /**

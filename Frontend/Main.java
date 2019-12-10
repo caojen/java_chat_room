@@ -3,6 +3,7 @@ package Frontend;
 import java.util.Scanner;
 
 import Frontend.Configuation.Configuation;
+import Frontend.Configuation.IpSwitcher;
 import Frontend.Frontend.Frontend;
 
 public class Main {
@@ -18,6 +19,7 @@ public class Main {
   public static void main(String args[]) throws InterruptedException {
     try {
       Configuation.load_from_file();
+      IpSwitcher.run();
       Frontend.start();
     } catch (Exception e) {
       e.printStackTrace();

@@ -18,7 +18,7 @@ public class Frontend {
 
   public static void start() {
     Frontend.running = false;
-    System.out.println("\n\n\n[Client Start] Welcome to Chat-Room Client!");
+    System.out.println("\n[Client Start] Welcome to Chat-Room Client!\n");
 
     // login or register
     while (true) {
