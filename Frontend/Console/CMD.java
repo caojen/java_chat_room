@@ -84,7 +84,6 @@ public class CMD {
         }
       } else if(args[0].equals("#logout")) {
         Map<String, String> result = Helper.logout();
-
         if(result.get("status").equals("200")) {
           System.out.println("[logout success] " + result.get("message"));
           Frontend.running = false;
@@ -92,7 +91,7 @@ public class CMD {
           // System.out.println("[logout success] Enter any words to finish logout process...\t");
           System.out.println("[wait] Trying to restart frontend...");
           try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
           } catch(Exception e) {
 
           }
@@ -106,6 +105,7 @@ public class CMD {
         throw new Exception("");
       }
     } catch (Exception e) {
+      e.printStackTrace();
       throw new Exception("CMD usage error!\n");
     }
     return true;

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import Frontend.Helper.Helper;
+import Frontend.Configuation.Configuation;
 import Frontend.Frontend.Frontend;
 
 import java.util.LinkedHashMap;
@@ -61,7 +62,7 @@ public class ReceiverConsole implements Consoler {
 
 class LoopForReceive {
   public void start() {
-    while(Frontend.running == true) {
+    while(Frontend.running == true && Configuation.isLogin()) {
       // loop:
       //    ask for new message from server
       //    get the last key of this 'showText', if showText is null, last_key wiil be null.
@@ -74,7 +75,7 @@ class LoopForReceive {
             last_key = key;
           }
         }
-        if(Frontend.running == false) {
+        if(Frontend.running == false || Configuation.isLogin() == false) {
           break;
         }
         Map<String, String> result = Helper.getMessage(last_key);
@@ -105,7 +106,7 @@ class LoopForReceive {
    * @param value
    */
   private void AfterReceive(String key, String value) {
-    System.out.println("[" + key + "] " + value);
+    System.out.println("\t\t[" + key + "] " + value);
   }
 
 

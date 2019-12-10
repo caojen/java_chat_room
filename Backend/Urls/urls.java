@@ -15,6 +15,7 @@ import Backend.Views.View.QuitRoom;
 import Backend.Views.View.RemoveParticipant;
 import Backend.Views.View.RoomOwnerChange;
 import Backend.Views.View.UserLogin;
+import Backend.Views.View.UserLogout;
 import Backend.Views.View.UserRegister;
 
 
@@ -37,6 +38,7 @@ public class Urls {
     Urls.httpServer.createContext("/room/change", new RoomOwnerChange());
     Urls.httpServer.createContext("/room/members", new GetAllMembers());
     Urls.httpServer.createContext("/room/create", new CreateNewRoom());
+    Urls.httpServer.createContext("/logout", new UserLogout());
 
     Urls.httpServer.start();
 

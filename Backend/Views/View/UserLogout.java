@@ -12,7 +12,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Models.User;
-import Backend.Models.Room;
 
 public class UserLogout extends Views {
 
@@ -49,19 +48,19 @@ public class UserLogout extends Views {
                 User user = User.get_user(username);
 
                 if(user == null) {
-                returnCode = 403;
-                returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
-                } else {
-                boolean isAnthenticate = user.anthenticate(token);
-
-                if(!isAnthenticate) {
                     returnCode = 403;
                     returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
                 } else {
-                    user.logout(receive.get("roomid"));
-                    returnCode = 200;
-                    returnMessage = "statu=200&message=OK";
-                }
+                    boolean isAnthenticate = user.anthenticate(token);
+
+                    if(!isAnthenticate) {
+                        returnCode = 403;
+                        returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
+                    } else {
+                        user.logout(receive.get("roomid"));
+                        returnCode = 200;
+                        returnMessage = "status=200&message=OK";
+                    }
                 
                 }
 

@@ -17,7 +17,7 @@ public class Frontend {
 
   public static void start() {
     Frontend.running = false;
-    System.out.println("Welcome to Chat-Room Client!");
+    System.out.println("\n\n\n[Client Start] Welcome to Chat-Room Client!");
 
     // login or register
     while (true) {
@@ -35,14 +35,18 @@ public class Frontend {
 
     // deal with ctrl+c here:
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      System.out.println("\n[Exited detected]\n[accept command] #quit");
-      Frontend.running = false;
-      try {
-        CMD.execute("#quit");
-      } catch (Exception e) {
-        System.out.println("\n[Quit Warning]\n\tYou may be the owner of this room, therefore you cannot quit the room.\n\t"+
-          "If this message showed after you delete this room, you have successfully deleted this room already.\n\t"+
-          "Otherwise, You have just already killed this program successfully.");
+      if(Configuation.isLogin()) {
+        System.out.println("\n[Exited detected]\n[accept command] #quit");
+        Frontend.running = false;
+        try {
+          CMD.execute("#quit");
+        } catch (Exception e) {
+          System.out.println("\n[Quit Warning]\n\tYou may be the owner of this room, therefore you cannot quit the room.\n\t"+
+            "If this message showed after you delete this room, you have successfully deleted this room already.\n\t"+
+            "Otherwise, You have just already killed this program successfully.");
+        }
+      } else {
+        System.out.println("\n[exit]\n");
       }
     }));
 
@@ -152,11 +156,11 @@ public class Frontend {
     // first: asking for room list, show it and its owner, type the room_id and enter the room:
     Map<String, String> roomList = Helper.getRoomList();
     
-    System.out.println("[room list]");
+    System.out.println("[room list]\n");
     for(String roomid: roomList.keySet()) {
-      System.out.println("[id] " + roomid + " [owner] " + roomList.get(roomid));
+      System.out.println("\t[id] " + roomid + " [owner] " + roomList.get(roomid));
     }
-    System.out.println("[room select] Please type room id to enter the room:");
+    System.out.println("\n[room select] Please type room id to enter the room:");
 
     String roomid = Main.scan.nextLine();
 
