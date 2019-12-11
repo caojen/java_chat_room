@@ -5,6 +5,7 @@ import java.util.Map;
 import Frontend.Frontend.Frontend;
 import Frontend.Helper.Helper;
 import Frontend.Configuation.Configuation;
+import Frontend.Configuation.UserType.UserTypeEnum;
 
 public class CMD {
   /**
@@ -76,8 +77,10 @@ public class CMD {
 
       } else if(args[0].equals("#createroom")) {
         boolean result = Helper.createRoom(args[1]);
-
-        if(result == false) {
+        if(Configuation.get_usertype() == UserTypeEnum.Admin) {
+          System.out.println("[Failed] Admin is not allowed to create room");
+        }
+        else if(result == false) {
           System.out.println("[Error] The room may exist. It's not allowed.");
         } else {
           System.out.println("[createRoom success]");
