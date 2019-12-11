@@ -12,7 +12,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Models.User;
-import Backend.Models.ModelType.ModelTypes;
 import Backend.Models.Users.Admin;
 import Backend.Control.Control;
 import Backend.Models.Room;
