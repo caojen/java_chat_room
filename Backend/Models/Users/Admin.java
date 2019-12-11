@@ -2,12 +2,20 @@ package Backend.Models.Users;
 
 import Backend.Control.Control;
 import Backend.Models.User;
+import Backend.Models.ModelType.ModelTypes;
+import Backend.Models.ModelType;
 
 public final class Admin extends User{
-  Participant tmp_participant = new Participant(); // Do not store to database, just use its method.
 
-  // Admin has no data
-  // What can Admin do?
+  @Override
+  public ModelTypes getType() {
+    return ModelTypes.Admin;
+  }
+
+  @Override
+  public String getTypeStr() {
+    return ModelType.toString(getType());
+  }
 
   /**
    * To delete a room
@@ -37,5 +45,12 @@ public final class Admin extends User{
   }
 
   // to deal with database
-  // no information, so ignore this part.
+  
+  public static boolean isAdmin(User user) {
+    if(Control.getUserType(user.getUsername()).equals("Admin")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

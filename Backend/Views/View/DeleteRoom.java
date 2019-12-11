@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 import Backend.Views.Views;
 import Backend.Models.User;
 import Backend.Models.ModelType.ModelTypes;
+import Backend.Models.Users.Admin;
 import Backend.Control.Control;
 import Backend.Models.Room;
 
@@ -62,11 +63,12 @@ public class DeleteRoom extends Views {
                     returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
                 } else {
                     Room room = Room.LoadRoom(roomid);
+                    
                     if(room == null) {
                         returnCode = 402;
                         returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
                     } else {
-                        if(room.getOwner().getUsername().equals(user.getUsername()) || user.getType() == ModelTypes.Admin) {
+                        if(room.getOwner().getUsername().equals(user.getUsername()) || Admin.isAdmin(user)) {
                             Control.delete_room(roomid);
                             returnCode = 200;
                             returnMessage = "status=200&message=" + URLEncoder.encode("Done", "utf-8");
