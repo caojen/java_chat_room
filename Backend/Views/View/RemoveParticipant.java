@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 import Backend.Views.Views;
 import Backend.Models.User;
 import Backend.Models.ModelType.ModelTypes;
+import Backend.Models.Users.Admin;
 import Backend.Control.Control;
 import Backend.Models.Room;
 
@@ -68,7 +69,7 @@ public class RemoveParticipant extends Views {
                         returnCode = 402;
                         returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
                     } else {
-                        if(room.getOwner().getUsername().equals(user.getUsername()) || user.getType() == ModelTypes.Admin) {
+                        if(room.getOwner().getUsername().equals(user.getUsername()) || Admin.isAdmin(user)) {
                             Control.delete_participant(roomid, user_t.getUsername());
                             returnCode = 200;
                             returnMessage = "status=200&message=" + URLEncoder.encode("Done", "utf-8");
