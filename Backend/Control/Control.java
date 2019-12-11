@@ -363,13 +363,13 @@ public class Control {
 
       ResultSet rs = state.executeQuery(sql);
 
-      
-
       if(rs.next()) {
+        state.close();
+        con.close();
         return "Admin";
       }
+
       state.close();
-      
       con.close();
       return "Participant";
 

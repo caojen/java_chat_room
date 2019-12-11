@@ -78,7 +78,7 @@ public class CMD {
         boolean result = Helper.createRoom(args[1]);
 
         if(result == false) {
-          System.out.println("[Room_id Duplicated]");
+          System.out.println("[Error] The room may exist. It's not allowed.");
         } else {
           System.out.println("[createRoom success]");
         }

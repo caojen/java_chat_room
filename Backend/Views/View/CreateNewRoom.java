@@ -12,6 +12,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import Backend.Views.Views;
 import Backend.Models.User;
+import Backend.Models.Users.Admin;
 import Backend.Control.Control;
 import Backend.Models.Room;
 
@@ -59,6 +60,9 @@ public class CreateNewRoom extends Views {
                 if(!isAnthenticate) {
                     returnCode = 403;
                     returnMessage = "status=403&message=" + URLEncoder.encode("Authentication Failed", "utf-8");
+                } else if(Admin.isAdmin(user)){
+                    returnCode = 403;
+                    returnMessage = "status=403&message=" + URLEncoder.encode("Admin_Create_Room_Not_Allow", "utf-8");
                 } else {
                     Room room = Room.LoadRoom(roomid);
                     if(room != null) {
