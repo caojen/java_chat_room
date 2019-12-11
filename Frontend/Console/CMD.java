@@ -91,7 +91,7 @@ public class CMD {
           // System.out.println("[logout success] Enter any words to finish logout process...\t");
           System.out.println("[wait] Trying to restart frontend...");
           try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
           } catch(Exception e) {
 
           }
