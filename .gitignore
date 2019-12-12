@@ -7,4 +7,4 @@ yarn.lock
 
 server.js
 
-Java GUI
+*.log
