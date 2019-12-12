@@ -16,8 +16,6 @@ public class Form extends JFrame {
     this.setTitle("Form");
     this.setSize(400,500);
     this.setLocationRelativeTo(null);
-    
-
   }
 
   /**
