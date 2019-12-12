@@ -1,9 +1,11 @@
 package FGUI;
 
-import FGUI.Console.IpSwitch;
+import FGUI.Configuation.Configuation;
+import FGUI.Console.Form;
 
 public class Main {
   public static void main(String args[]) {
-    IpSwitch.start();
+    Form.start();
+    Configuation.load_from_file();
   }
 }

@@ -20,6 +20,7 @@ public class FRM extends Frame {
 	class CVS extends Canvas {
 		// paint this canvas
 		public void paint(final Graphics g) {
+			System.out.println("1");
 			g.drawRect(50, 25, 300, 100);
 			g.drawString("FRM is-a container", 60, 50);
 			g.drawString("CVS is-not-a container", 60, 80);
