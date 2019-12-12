@@ -59,3 +59,8 @@ make runfrontend
 ```
 make runbackend
 ```
+
+服务器配置:
+```
+http://39.98.244.149:8888/
+```
