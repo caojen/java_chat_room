@@ -78,7 +78,7 @@ public class Configuation {
     return room_id;
   }
 
-  public static String LogPath = "Frontend/Log/frontend.log";
+  public static String LogPath = "FGUI/Log/frontend.log";
 
   public static void logout() {
     Configuation.username = null;
