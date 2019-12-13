@@ -50,7 +50,7 @@ public class LoginorRegister implements Component{
           if(login_result.get("status").equals("200") == false) {
             JOptionPane.showMessageDialog(null, "Password Error or Username Not Exists!");
           } else {
-            InRoom.start();
+            SelectRoom.start();
           }
         }
       }
