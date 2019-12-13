@@ -13,7 +13,7 @@ public class IpSwitch {
 
   public static void start() {
     Form.form.getContentPane().removeAll();
-    Form.form.setVisible(false);
+    // Form.form.setVisible(false);
     Form.form.setTitle("Ip Switch");
     
     Container c = Form.form.getContentPane();
@@ -50,8 +50,8 @@ public class IpSwitch {
     buttomPanel.add(jButton);
     c.add(buttomPanel, "South");
 
-    Form.form.setSize(400, 160);
+    // Form.form.setSize(400, 160);
 
-    Form.form.setVisible(true);
+    // Form.form.setVisible(true);
   }
 }
