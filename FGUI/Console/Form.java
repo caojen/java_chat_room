@@ -1,7 +1,6 @@
 package FGUI.Console;
 
 import javax.swing.*;
-import java.awt.Component;
 
 import FGUI.Console.Components.*;
 
