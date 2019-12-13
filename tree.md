@@ -1,52 +1,78 @@
 .
 ├── Backend
 │   ├── Backend
+│   │   ├── Backend.class
 │   │   └── Backend.java
 │   ├── Control
+│   │   ├── Control.class
 │   │   ├── Control.java
 │   │   └── database.db
 │   ├── Log
 │   │   └── backend.log
+│   ├── Main.class
 │   ├── Main.java
 │   ├── Models
+│   │   ├── ModelType$ModelTypes.class
+│   │   ├── ModelType.class
 │   │   ├── ModelType.java
+│   │   ├── Models.class
 │   │   ├── Models.java
+│   │   ├── Room.class
 │   │   ├── Room.java
+│   │   ├── User.class
 │   │   ├── User.java
 │   │   └── Users
+│   │       ├── Admin.class
 │   │       ├── Admin.java
+│   │       ├── Participant.class
 │   │       └── Participant.java
 │   ├── Urls
+│   │   ├── Urls.class
 │   │   └── Urls.java
 │   └── Views
+│       ├── Time.class
 │       ├── Time.java
 │       ├── View
+│       │   ├── CreateNewRoom.class
 │       │   ├── CreateNewRoom.java
+│       │   ├── DeleteRoom.class
 │       │   ├── DeleteRoom.java
+│       │   ├── EnterRoom.class
 │       │   ├── EnterRoom.java
+│       │   ├── GetAllMembers.class
 │       │   ├── GetAllMembers.java
+│       │   ├── GetAllRoom.class
 │       │   ├── GetAllRoom.java
+│       │   ├── NewMessageReceive.class
 │       │   ├── NewMessageReceive.java
+│       │   ├── NewMessageSend.class
 │       │   ├── NewMessageSend.java
+│       │   ├── QuitRoom.class
 │       │   ├── QuitRoom.java
+│       │   ├── RemoveParticipant.class
 │       │   ├── RemoveParticipant.java
+│       │   ├── RoomOwnerChange.class
 │       │   ├── RoomOwnerChange.java
+│       │   ├── UserLogin.class
 │       │   ├── UserLogin.java
+│       │   ├── UserLogout.class
 │       │   ├── UserLogout.java
+│       │   ├── UserRegister.class
 │       │   └── UserRegister.java
+│       ├── Views.class
 │       └── Views.java
 ├── FGUI
 │   ├── Configuation
+│   │   ├── Configuation.cfg
 │   │   ├── Configuation.java
 │   │   └── UserType.java
 │   ├── Console
 │   │   ├── Components
-│   │   │   ├── ParticipatorShower.java
-│   │   │   └── Receiver.java
-│   │   ├── InRoom.java
-│   │   ├── IpSwitch.java
-│   │   ├── LoginorRegister.java
-│   │   └── SelectRoom.java
+│   │   │   ├── Component.java
+│   │   │   ├── InRoom.java
+│   │   │   ├── IpSwitch.java
+│   │   │   └── LoginorRegister.java
+│   │   └── Form.java
 │   ├── Helper
 │   │   └── Helper.java
 │   ├── Http
@@ -79,25 +105,10 @@
 │   │   ├── Time.java
 │   │   └── frontend.log
 │   └── Main.java
-├── GUI
-│   ├── BLM.java
-│   ├── BTN.java
-│   ├── Calculator.java
-│   ├── CreatNewFrame.java
-│   ├── DLG.java
-│   ├── FCH.java
-│   ├── FRM.java
-│   ├── GLM.java
-│   ├── HLW.java
-│   ├── HelloAWT.java
-│   ├── LST.java
-│   ├── LTF.java
-│   ├── MNB.java
-│   └── PNL.java
 ├── README.md
 ├── makefile
 ├── sqlite.jar
 ├── todo.md
 └── tree.md
 
-24 directories, 76 files
+23 directories, 88 files

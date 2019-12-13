@@ -16,6 +16,7 @@ public class Form extends JFrame {
   public Form() {
     this.setTitle("Form");
     this.setSize(400,500);
+    this.setResizable(false);
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
