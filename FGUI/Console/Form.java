@@ -10,7 +10,8 @@ public class Form extends JFrame {
   public static Form form = new Form();
 
   public static void start() {
-    IpSwitch.start();
+    // IpSwitch.start();
+    SelectRoom.start();
   }
 
   public Form() {
