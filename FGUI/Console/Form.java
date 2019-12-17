@@ -5,13 +5,12 @@ import javax.swing.*;
 import FGUI.Console.Components.*;
 
 public class Form extends JFrame {
-  private static final long serialVersionUID = 8280050013528051744L;
+  private static final long serialVersionUID = -1;
 
   public static Form form = new Form();
 
   public static void start() {
-    // IpSwitch.start();
-    SelectRoom.start();
+    IpSwitch.start();
   }
 
   public Form() {
