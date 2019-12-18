@@ -59,7 +59,6 @@ public class SelectRoom implements Component {
           }
           jList.setSelectedValue(null, false);
         } else if(selectedValue.equals("Logout...")) {
-          System.out.println("logout");
           try {
             Helper.logout();
           } catch (Exception exc) {
@@ -84,6 +83,11 @@ public class SelectRoom implements Component {
             String roomid = getRoomid(selectedValue);
             try {
               Helper.deleteRoom(roomid);
+              JOptionPane.showMessageDialog(null, "OK", "Create Room",JOptionPane.PLAIN_MESSAGE);
+              Map<String, String> t_rooms = Helper.getRoomList();
+              ArrayList<String> t_string_rooms = roomsFormat(t_rooms);
+              ListModel<String> t_jListModel = new DefaultComboBoxModel<>((String []) t_string_rooms.toArray(new String[0]));
+              jList.setModel(t_jListModel);
             } catch (Exception exc) {
               JOptionPane.showMessageDialog(null, exc.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE); 
             }
