@@ -86,6 +86,7 @@ public class HttpRequestSender implements HttpRequest {
         param += key + "=" + value;
       }
     } catch (Exception e) {
+      e.printStackTrace();
       throw new Exception(e);
     }
 

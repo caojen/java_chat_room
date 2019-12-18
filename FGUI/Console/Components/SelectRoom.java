@@ -40,6 +40,9 @@ public class SelectRoom implements Component {
         if(selectedValue.equals("Create a new room...")) {
           String r = JOptionPane.showInputDialog(null, "Please enter new room id");
           try {
+            if(r == null || r.equals("")) {
+              return;
+            }
             boolean create_result = Helper.createRoom(r);
             if(create_result == true) {
               JOptionPane.showMessageDialog(null, "OK", "Create Room",JOptionPane.PLAIN_MESSAGE);

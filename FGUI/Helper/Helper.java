@@ -131,7 +131,9 @@ public class Helper {
       body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
       return http.post(Configuation.ApiPrifix + Configuation.enterRoom, body);
     } catch (Exception e) {
-      // System.out.println(e.getMessage());
+      System.out.println("1");
+      e.printStackTrace();
+      System.out.println("2");
       return null;
     }
   }
@@ -261,6 +263,7 @@ public class Helper {
     }
 
     String members = result.get("message");
+
     return Helper.toMap(members);
   }
 

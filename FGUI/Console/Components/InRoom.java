@@ -51,7 +51,9 @@ public class InRoom implements Component {
         DetectParticipators.running = false;
         
         try {
-          Helper.logout();
+          // Form.form.remove(menuBar);
+          menuBar.setVisible(false);
+          Helper.quitRoom();
         } catch (Exception exc) {
           exc.printStackTrace();
         }
@@ -67,6 +69,7 @@ public class InRoom implements Component {
         DetectParticipators.running = false;
 
         try {
+          menuBar.setVisible(false);
           Helper.logout();
         } catch (Exception exc) {
           
@@ -93,7 +96,6 @@ public class InRoom implements Component {
     });
 
     Form.form.setJMenuBar(menuBar);
-    
     JPanel jpanel = new JPanel();
     jpanel.setLayout(null);
 
@@ -174,7 +176,7 @@ public class InRoom implements Component {
     c.add(jpanel);
 
     MessageReceiver.start(jTextArea);
-
+    DetectParticipators.start(jList);
     Form.form.setSize(850, 560);
 
     Form.form.setVisible(true);
@@ -296,12 +298,8 @@ class DetectParticipators implements Runnable {
   public void run() {
     while (DetectParticipators.running == true) {
       try {
-        Map<String, String> result = Helper.getMembers();
-        if(result.get("status").equals("200") == false) {
-          throw new Exception("GET_MESSAGE_ERROR");
-        }
-        String members = result.get("member");
-        Map<String, String> map_members = Helper.toMap(members);
+        Map<String, String> map_members = Helper.getMembers();
+
         ArrayList<String> strings_members = new ArrayList<>();
 
         for(String s: map_members.keySet()) {
@@ -312,6 +310,7 @@ class DetectParticipators implements Runnable {
         DetectParticipators.participatorList.setModel(jListModel);
         Thread.sleep(1000);
       } catch (Exception e) {
+        e.printStackTrace();
         DetectParticipators.running = false;
       }
     }
