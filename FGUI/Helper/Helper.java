@@ -143,7 +143,7 @@ public class Helper {
    *              value should be encoded.
    * @return return a order map
    */
-  private static Map<String, String> toMap(String array_str) throws Exception {
+  public static Map<String, String> toMap(String array_str) throws Exception {
     if (array_str.length() < 2) {
       return null;
     }
@@ -290,6 +290,7 @@ public class Helper {
       body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
       body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
       res = http.post(Configuation.ApiPrifix + Configuation.logout, body);
+      Configuation.logout();
     }
     return res;
   }

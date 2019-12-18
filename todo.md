@@ -10,4 +10,7 @@ test and debug for admin  ... Done
 create a configuation file, and load user data from this file   ... Done
 add a ip_switcher.class       ... Done
 
-implement of UI
+implement of UI   ... Done
+debug gui
+
+owner cannot delete itself, even if delete by admin ... Done
