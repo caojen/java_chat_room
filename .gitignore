@@ -8,5 +8,6 @@ yarn.lock
 server.js
 
 *.log
+*.drop
 
 GUI
