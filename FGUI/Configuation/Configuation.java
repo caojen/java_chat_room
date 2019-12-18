@@ -14,6 +14,7 @@ public class Configuation {
   // for console:
   public static String sendMessage = "send/";
   public static String getMessage = "get/";
+  public static String Verify = "verify/";
   // login:
   public static String login = "login/";
   // logout:

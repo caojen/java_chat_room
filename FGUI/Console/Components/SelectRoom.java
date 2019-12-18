@@ -67,7 +67,7 @@ public class SelectRoom implements Component {
           LoginorRegister.start();
         } else {
           Object[] options = {"Yes", "No", "Cancel"};
-          int response = JOptionPane.showOptionDialog(null, "Yes--Enter the Room;\nNo--Delete the Room", "title", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+          int response = JOptionPane.showOptionDialog(null, "Yes--Enter the Room;\nNo--Delete the Room", "Select an operation", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
           if(response == 0) {
             String roomid = getRoomid(selectedValue);

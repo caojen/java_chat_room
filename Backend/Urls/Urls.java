@@ -17,6 +17,7 @@ import Backend.Views.View.RoomOwnerChange;
 import Backend.Views.View.UserLogin;
 import Backend.Views.View.UserLogout;
 import Backend.Views.View.UserRegister;
+import Backend.Views.View.Verify;
 
 
 public class Urls {
@@ -26,6 +27,7 @@ public class Urls {
 
     Urls.httpServer = HttpServer.create(new InetSocketAddress(8888), 0);
 
+    Urls.httpServer.createContext("/verify", new Verify());
     Urls.httpServer.createContext("/send", new NewMessageReceive());
     Urls.httpServer.createContext("/get", new NewMessageSend());
     Urls.httpServer.createContext("/login", new UserLogin());

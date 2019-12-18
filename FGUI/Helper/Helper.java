@@ -312,5 +312,15 @@ public class Helper {
     }
     return res;
   }
+
+  public static boolean ipVerify(String ip) {
+    try {
+      http.get(ip + Configuation.Verify, null);
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 }
 

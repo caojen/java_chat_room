@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import FGUI.Console.Form;
+import FGUI.Helper.Helper;
 import FGUI.Configuation.Configuation;
 
 public class IpSwitch implements Component{
@@ -43,7 +44,12 @@ public class IpSwitch implements Component{
       @Override
       public void actionPerformed(ActionEvent arg0) {
         Configuation.ApiPrifix = IpSwitch.ip_text.getText();
-        LoginorRegister.start();
+        boolean res = Helper.ipVerify(Configuation.ApiPrifix);
+        if(res == false) {
+          JOptionPane.showMessageDialog(null, "No Response from " + Configuation.ApiPrifix);
+        } else {
+          LoginorRegister.start();
+        }
       }
     });
     jButton.setText("OK");
