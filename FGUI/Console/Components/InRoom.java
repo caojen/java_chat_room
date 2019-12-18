@@ -118,7 +118,6 @@ public class InRoom implements Component {
     sendBtn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("send");
         try {
           sendMessage(inputArea.getText());
           inputArea.setText("");
@@ -308,7 +307,7 @@ class DetectParticipators implements Runnable {
 
         ListModel<String> jListModel = new DefaultComboBoxModel<>((String []) strings_members.toArray(new String[0]));
         DetectParticipators.participatorList.setModel(jListModel);
-        Thread.sleep(1000);
+        Thread.sleep(5000);
       } catch (Exception e) {
         e.printStackTrace();
         DetectParticipators.running = false;

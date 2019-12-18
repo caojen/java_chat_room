@@ -67,11 +67,11 @@ public class RemoveParticipant extends Views {
                     if(room == null) {
                         returnCode = 402;
                         returnMessage = "status=402&message=" + URLEncoder.encode("No Such Room", "utf-8");
-                    } else if(room.getOwner().getUsername().equals(user_t.getUsername())){
-                        returnCode = 405;
-                        returnMessage = "status=405&&message="+URLEncoder.encode("Owner_Cannot_be_Deleted", "utf-8");
                     } else {
-                        if(room.getOwner().getUsername().equals(user.getUsername()) || Admin.isAdmin(user)) {
+                        if(room.getOwner().getUsername().equals(user_t.getUsername())){
+                            returnCode = 405;
+                            returnMessage = "status=405&message="+URLEncoder.encode("Owner_Cannot_be_Deleted", "utf-8");
+                        } else if (room.getOwner().getUsername().equals(user.getUsername()) || Admin.isAdmin(user)) {
                             Control.delete_participant(roomid, user_t.getUsername());
                             returnCode = 200;
                             returnMessage = "status=200&message=" + URLEncoder.encode("Done", "utf-8");

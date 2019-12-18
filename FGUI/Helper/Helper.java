@@ -224,8 +224,23 @@ public class Helper {
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
     if (!result.get("status").equals("200")) {
-      System.out.println("[quit room error] Cannot delete because of " + result.get("message"));
+      System.out.println("[delete room error] Cannot delete because of " + result.get("message"));
       return false;
+    }
+    return true;
+  }
+
+  public static boolean deleteRoom(String roomid) throws Exception {
+    Map<String, String> body = new HashMap<String, String>();
+
+    body.put("username", URLEncoder.encode(Configuation.get_username(), "utf-8"));
+    body.put("token", URLEncoder.encode(Configuation.get_token(), "utf-8"));
+    body.put("roomid", URLEncoder.encode(roomid, "utf-8"));
+
+    Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
+
+    if (!result.get("status").equals("200")) {
+      throw new Exception("Cannot delete because of " + result.get("message"));
     }
     return true;
   }

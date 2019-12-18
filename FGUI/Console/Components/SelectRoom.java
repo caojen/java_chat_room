@@ -67,14 +67,26 @@ public class SelectRoom implements Component {
           }
           LoginorRegister.start();
         } else {
-          String roomid = getRoomid(selectedValue);
-          Map<String, String> res = Helper.enterRoom(roomid);
-          if(!res.get("status").equals("200")) {
-            String message = res.get("message");
-            JOptionPane.showMessageDialog(null, message, "Enter Error!",JOptionPane.ERROR_MESSAGE);
-          } else {
-            Configuation.set_room_id(roomid);
-            InRoom.start();
+          Object[] options = {"Yes", "No", "Cancel"};
+          int response = JOptionPane.showOptionDialog(null, "Yes--Enter the Room;\nNo--Delete the Room", "title", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+          if(response == 0) {
+            String roomid = getRoomid(selectedValue);
+            Map<String, String> res = Helper.enterRoom(roomid);
+            if(!res.get("status").equals("200")) {
+              String message = res.get("message");
+              JOptionPane.showMessageDialog(null, message, "Enter Error!",JOptionPane.ERROR_MESSAGE);
+            } else {
+              Configuation.set_room_id(roomid);
+              InRoom.start();
+            }
+          } else if(response == 1) {
+            String roomid = getRoomid(selectedValue);
+            try {
+              Helper.deleteRoom(roomid);
+            } catch (Exception exc) {
+              JOptionPane.showMessageDialog(null, exc.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE); 
+            }
           }
         }
       }

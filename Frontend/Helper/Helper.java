@@ -222,7 +222,7 @@ public class Helper {
     Map<String, String> result = http.post(Configuation.ApiPrifix + Configuation.deleteRoom, body);
 
     if (!result.get("status").equals("200")) {
-      System.out.println("[quit room error] Cannot delete because of " + result.get("message"));
+      System.out.println("[delete room error] Cannot delete because of " + result.get("message"));
       return false;
     }
     return true;
