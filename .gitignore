@@ -1,5 +1,6 @@
 .vscode
 *.class
+*.txt
 
 node_modules
 package.json
