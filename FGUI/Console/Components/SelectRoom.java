@@ -83,7 +83,7 @@ public class SelectRoom implements Component {
             String roomid = getRoomid(selectedValue);
             try {
               Helper.deleteRoom(roomid);
-              JOptionPane.showMessageDialog(null, "OK", "Create Room",JOptionPane.PLAIN_MESSAGE);
+              JOptionPane.showMessageDialog(null, "OK", "Delete Room",JOptionPane.PLAIN_MESSAGE);
               Map<String, String> t_rooms = Helper.getRoomList();
               ArrayList<String> t_string_rooms = roomsFormat(t_rooms);
               ListModel<String> t_jListModel = new DefaultComboBoxModel<>((String []) t_string_rooms.toArray(new String[0]));
