@@ -6,7 +6,7 @@
 │   │   ├── Control.java
 │   │   └── database.db
 │   ├── Log
-│   │   └── backend.log
+│   │   └── README.md
 │   ├── Main.java
 │   ├── Models
 │   │   ├── ModelType.java
@@ -33,7 +33,8 @@
 │       │   ├── RoomOwnerChange.java
 │       │   ├── UserLogin.java
 │       │   ├── UserLogout.java
-│       │   └── UserRegister.java
+│       │   ├── UserRegister.java
+│       │   └── Verify.java
 │       └── Views.java
 ├── FGUI
 │   ├── Configuation
@@ -58,6 +59,7 @@
 │   │   ├── Time.java
 │   │   └── frontend.log
 │   └── Main.java
+├── FGUI.jar
 ├── Frontend
 │   ├── Configuation
 │   │   ├── Configuation.cfg
@@ -78,13 +80,13 @@
 │   │   └── HttpRequestSender.java
 │   ├── Log
 │   │   ├── Log.java
-│   │   ├── Time.java
-│   │   └── frontend.log
+│   │   └── Time.java
 │   └── Main.java
 ├── README.md
-├── makefile
+├── README.md.drop
+├── jarpackage.txt
 ├── sqlite.jar
 ├── todo.md
 └── tree.md
 
-23 directories, 64 files
+23 directories, 66 files
