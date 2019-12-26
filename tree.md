@@ -85,8 +85,10 @@
 ├── README.md
 ├── README.md.drop
 ├── jarpackage.txt
+├── model.txt
+├── report.md
 ├── sqlite.jar
 ├── todo.md
 └── tree.md
 
-23 directories, 66 files
+23 directories, 68 files
