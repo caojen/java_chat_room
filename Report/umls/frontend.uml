@@ -1,0 +1,143 @@
+@startuml
+class Main {
+  + {static} void main(String args[])
+}
+
+interface HttpRequest {
+  + Map<String, String> get(String url, Map<String, String> map)
+  + Map<String, String> post(String url, Map<String, String> map)
+  + Map<String, String> put(String url, Map<String, String> map)
+  + Map<String, String> delete(String url, Map<String, String> map)
+  - Map<String, String> formatHttpResult(String data);
+}
+
+class HttpRequestSender {
+  + Map<String, String> get(String url, Map<String, String> map)
+  + Map<String, String> post(String url, Map<String, String> map)
+  + {deprecated} Map<String, String> put(String url, Map<string, String> map)
+  + {deprecated} Map<String, String> delete(String url, Map<String, String> map)
+}
+
+class Helper {
+  - {static} HttpRequest http
+  + {static} Map<String, String> sendMessage()
+  + {static} Map<String, String> getMessage(String last_key)
+  + {static} Map<String, String> login(String username, String password)
+  + {static} Map<String, String> register(String username, String password, String email, String phone)
+  + {static} Map<String, String> getRoomList()
+  + {static} Map<String, String> enterRoom(String roomid)
+  + {static} Map<String, String> toMap(String array_str)
+  + {static} Map<String, String> quitRoom()
+  + {static} Map<String, String> removeParticipant(String username)
+  + {static} Map<String, String> deleteRoom()
+  + {static} Map<String, String> deleteRoom(String roomid)
+  + {static} Map<String, String> changeOwner(String username)
+  + {static} Map<String, String> getMembers()
+  + {static} Map<String, String> createRoom()
+  + {static} Map<String, String> logout()
+  + {static} Map<String, String> ipVerify()
+}
+
+class Configuation {
+  + {static} String ApiPrifix
+  + {static} String sendMessage
+  + {static} String getMessage
+  + {static} String Verify
+  + {static} String logout
+  + {static} String register
+  + {static} String allRoom
+  + {static} String enterRoom
+  + {static} String quitRoom
+  + {static} String removeParticipant
+  + {static} String deleteRoom
+  + {static} String changeOwner
+  + {static} String getMembers
+  + {static} String createRoom
+
+  - {static} String username
+  - {static} String token
+  - {static} UserTypeEnum UserType
+  - {static} String room_id
+
+  + {static} String LogPath
+  - {static} String configuation_file
+  .. Getters ..
+  + {static} String get_username()
+  + {static} String get_token()
+  + {static} UserTypeEnum get_usertype()
+  + {static} String get_room_id()
+  .. Setters ..
+  + {static} void set_username()
+  + {static} void set_token()
+  + {static} void set_usertype()
+  + {static} void set_room_id()
+  .. Other Methods ..
+  + {static} void logout()
+  + {static} boolean isLogin()
+  + {static} void load_from_file()
+  - {static} Map<String, String> stringBuffertoMap(StringBuffer sb)
+}
+
+class UserType {
+  + {static} enum UserTypeEnum
+  + {static} String toString(UserTypeEnum ute)
+  + {static} UserTypeEnum toEnum(String usertype)
+}
+
+class JFrame
+
+class Form {
+  - {static} final long serialVersionUID
+  + {static} Form form
+  + {static} void start()
+  + Form()
+}
+
+interface Component
+
+class InRoom {
+  + {static} void start()
+  - {static} void sendMessage(String text)
+}
+
+class IpSwitch {
+  + {static} void start()
+}
+
+class LoginorRegister {
+  + {static} void start()
+}
+
+class SelectedRoom {
+  + {static} void start()
+}
+
+class Log {
+  + {static} void write(String string)
+  + {static} void writeMap(Map<String, String> map)
+  - {static} String mapToString(Map<String, String> map)
+}
+
+class Time {
+  + {static} SimpleDateFormat df
+  + {static} getTime()
+}
+
+HttpRequest <|.. HttpRequestSender
+
+Component <|.. InRoom
+Component <|.. IpSwitch
+Component <|.. LoginorRegister
+Component <|.. SelectedRoom
+JFrame <|-- Form
+
+Main - Form : call >
+Form - Component : call to modify >
+Component - Helper : to send message >
+Helper - Configuation : get current user's information <
+Helper - HttpRequest : to send http request > 
+Configuation - UserType : store the usertype < 
+HttpRequest - Log : to store log >
+Log - Time : to get current time > 
+
+@enduml

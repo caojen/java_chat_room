@@ -80,15 +80,34 @@
 │   │   └── HttpRequestSender.java
 │   ├── Log
 │   │   ├── Log.java
-│   │   └── Time.java
+│   │   ├── Time.java
+│   │   └── frontend.log
 │   └── Main.java
 ├── README.md
-├── README.md.drop
+├── Report
+│   ├── images
+│   │   ├── backend1.png
+│   │   ├── backend_uml.jpg
+│   │   ├── frontend1.png
+│   │   ├── frontend2.png
+│   │   ├── frontend3.png
+│   │   ├── frontend4.png
+│   │   ├── frontend5.png
+│   │   ├── frontend_1.png
+│   │   ├── frontend_2.png
+│   │   ├── frontend_3.png
+│   │   ├── frontend_4.png
+│   │   ├── frontend_5.png
+│   │   ├── frontend_6.png
+│   │   ├── frontend_7.png
+│   │   └── frontend_uml.jpg
+│   ├── report.md
+│   └── umls
+│       ├── backend.uml
+│       └── frontend.uml
 ├── jarpackage.txt
-├── model.txt
-├── report.md
 ├── sqlite.jar
 ├── todo.md
 └── tree.md
 
-23 directories, 68 files
+26 directories, 84 files

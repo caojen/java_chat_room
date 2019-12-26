@@ -1,0 +1,190 @@
+@startuml
+class Main {
+    + {static} void main(String args[])
+}
+class Backend {
+    + {static} void start()
+}
+
+interface HttpHandler
+
+abstract class Views {
+    + {abstract} void handel()
+}
+class CreateNewRoom {
+    + void handel()
+}
+class DeleteRoom {
+    + void handel()
+}
+class EnterRoom {
+    + void handel()
+}
+class GetAllMembers {
+    + void handel()
+}
+class GetAllRoom {
+    + void handel()
+}
+class NewMessageReceive {
+    + void handel()
+}
+class NewMessageSend {
+    + void handel()
+}
+class QuitRoom {
+    + void handel()
+}
+class RemoveParticipant {
+    + void handel()
+}
+class RoomOwnerChange {
+    + void handel()
+}
+class UserLogin {
+    + void handel()
+}
+class UserLogout {
+    + void handel()
+}
+class Verify {
+    + void handel()
+}
+
+class Urls {
+    + {static} void start()
+}
+
+interface Models {
+    + String getTypeStr()
+    + ModelTypes getType()
+}
+class ModelType {
+    + {static} enum ModelTypes
+    + {static} String toString()
+    + {static} ModelTypes toEnum()
+}
+class User {
+    - String username
+    - String password
+    .. Getters ..
+    + String getUsername()
+    + {deprecated} String getPassword()
+    .. Setters ..
+    + void setUsername();
+    + void setPassword();
+    .. Call Control ..
+    + String authenticate()
+    + boolean anthenticate(String token)
+    + void save()
+    + {deprecated} {static} User create_user(String username, String password)
+    + {deprecated} void delete_user()
+    + {static} User get_user(String username)
+    + String getUserType()
+    + void logout(String roomid)
+}
+class Room {
+    - String roomid
+    - User owner
+    - List<User> participants
+    - Map<String, String> historyMessage
+    .. Getters ..
+    + String getRoomid()
+    + User getOwner()
+    + List<User> getParticipants()
+    .. Setters ..
+    + void setRoomId()
+    + void setOwner()
+    + void setParticipants(List<User> participants)
+    .. Methods ..
+    + void appendParticipants(User participant)
+    + boolean isParticipantIn(User participant)
+    + void deleteParticipants(User participant)
+    + void appendMessage(User user, String message)
+    + void deleteMessage()
+    .. Call Control ..
+    + void save()
+    + void delete()
+    + {static} Room LoadRoom(String id)
+    + {static} Room get(String id)
+    + {static} Room create(String roomid, User Owner)
+    + Map<String, String> get_message(String time)
+    + {static} Map<String, String> all()
+}
+class Admin {
+    .. Call Control ..
+    + boolean delete_room(String room_id)
+    + boolean delete_member(String room_id, String participant)
+    + boolean access_room(String room_id)
+    + {static} boolean isAdmin(User user)
+}
+class Participant {
+    + String email
+    + String phone
+    .. Call Control ..
+    + Room create_room()
+    + boolean delete_room()
+    + boolean delete_member()
+    + boolean exit_room()
+    + boolean access_room()
+    + boolean give_room(String roomid, String to_user)
+    + void save()
+    + {static} Participant get(String username)
+    + void delete()
+    + void create(String username, String password, String email, String phone)
+}
+
+class Control {
+    + {static} boolean create_participant(String name, String password, String email, String phone)
+    + {static} boolean create_room(String roomid, String owner)
+    + {static} boolean delete_room(String roomid)
+    + {static} boolean add_participant(String roomid, String participant)
+    + {static} boolean delete_participant(String roomid, String participant)
+    + {static} boolean add_message(String roomid, String username, String newMessage, String time)
+    + {static} Map<String, String> get_message(String roomid, String time)
+    + {static} String login(String username, String password)
+    + {static} boolean login_required(String username, String token)
+    + {static} boolean exists_room(String room_id)
+    + {static} boolean exists_user(String username)
+    + {static} String getUserType(String username)
+    - {static} String token_create()
+    + {static} boolean save_user(String username, String password)
+    + {static} boolean changeOwner(String roomid, String oldOwner, String newOwner)
+    + {static} boolean save_participant(Participant participant)
+    + {static} Participant get_participant(String username)
+    + {static} Room get_room(String roomid)
+    + {static} void svae_room(Room room)
+    + {static} Map<String, String> get_all_room()
+    + {static} List<Participant> get_all_participant(String roomid)
+    + {static} void appendMessage(String room_id, User user, Stirng newmessage)
+    + {static} void logout(String username, String roomid) 
+}
+
+HttpHandler <|.. Views
+Views <|-- CreateNewRoom
+Views <|-- DeleteRoom
+Views <|-- EnterRoom
+Views <|-- GetAllMembers
+Views <|-- GetAllRoom
+Views <|-- NewMessageReceive
+Views <|-- NewMessageSend
+Views <|-- QuitRoom
+Views <|-- RemoveParticipant
+Views <|-- RoomOwnerChange
+Views <|-- UserLogin
+Views <|-- UserLogout
+Views <|-- Verify
+
+Models <|-- Room
+Models <|-- User
+User <|-- Admin
+User <|-- Participant
+
+Models - ModelType : Get the model Type > 
+Main - Backend : Call >
+Backend - Urls : Start Listening >
+Urls - Views : Create Listening Methods >
+Views - Models : Create Models and Call Interface to modify the database
+
+Models - Control : Use Control to modify database >
+@enduml
